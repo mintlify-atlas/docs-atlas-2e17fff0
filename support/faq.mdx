@@ -1,0 +1,185 @@
+---
+title: Frequently Asked Questions
+description: Common questions and answers about Obsidian Portable
+---
+
+## Frequently Asked Questions
+
+Find answers to common questions about Obsidian Portable.
+
+<AccordionGroup>
+  <Accordion title="What is Obsidian Portable?">
+    Obsidian Portable is a plain-text file markdown note-taking app packaged with a PortableApps.com launcher. It allows you to use Obsidian from a cloud folder, portable drive, or local folder without needing to install it on each PC.
+
+    This portable distribution lets you carry your entire note-taking environment with you, including all your vaults, plugins, and settings.
+  </Accordion>
+
+  <Accordion title="What version of Obsidian is currently included?">
+    The current version is **1.11.5** (Package Version: 1.11.5.0). This portable distribution is regularly updated to include the latest stable Obsidian releases.
+
+    Previous versions that have been packaged include:
+    - 1.11.5 (current)
+    - 1.9.12
+    - 1.8.7
+    - 1.6.5
+    - 1.4.13
+  </Accordion>
+
+  <Accordion title="How do I install Obsidian Portable?">
+    Installation is straightforward:
+
+    <Steps>
+      <Step title="Download">
+        Download the Obsidian Portable installer from the [PortableApps.com page](https://portableapps.com/apps/office/obsidian-portable)
+      </Step>
+      <Step title="Run the Installer">
+        Run the downloaded installer and choose your installation location (USB drive, cloud folder, or local directory)
+      </Step>
+      <Step title="Launch">
+        Once installed, run `ObsidianPortable.exe` to start the application
+      </Step>
+    </Steps>
+
+    No additional configuration is needed - all settings are stored in the portable directory.
+  </Accordion>
+
+  <Accordion title="Can I use Obsidian Portable on any Windows PC?">
+    Yes! That's the beauty of a portable app. You can run Obsidian Portable on any Windows PC without needing administrator rights or installing anything on the host system.
+
+    Simply plug in your portable drive or access your cloud folder, and run `ObsidianPortable.exe`. All your vaults, plugins, and settings travel with you.
+  </Accordion>
+
+  <Accordion title="Where are my vault files and settings stored?">
+    All data is stored within the portable application directory:
+
+    - **Vaults**: Stored in your chosen location (can be anywhere, including within the portable directory)
+    - **Settings**: Stored in `Data` folder within the portable app directory
+    - **Plugins**: Stored within each vault's `.obsidian` folder
+
+    When you move the portable app, all your settings move with it automatically.
+  </Accordion>
+
+  <Accordion title="Is Obsidian Portable free to use?">
+    Yes! Obsidian Portable is free to use. The packaging is licensed under GPL-3.0, and Obsidian itself is free for personal use.
+
+    If you want to support the development:
+    - Support Obsidian development through [Obsidian Unlimited](https://help.obsidian.md/Contributing+to+Obsidian/Obsidian+Unlimited+(donation))
+    - Support the portable packaging through [Ko-fi](https://ko-fi.com/papela)
+    - Support PortableApps.com hosting through their [donation page](https://portableapps.com/donate)
+  </Accordion>
+
+  <Accordion title="Can I use plugins with Obsidian Portable?">
+    Absolutely! Obsidian Portable supports all the same plugins and themes as the regular Obsidian installation.
+
+    You can:
+    - Install community plugins from the Community Plugins browser
+    - Install themes from the Appearance settings
+    - Use core plugins just like the standard version
+
+    All plugins are stored within your vault's `.obsidian` folder and travel with your portable installation.
+  </Accordion>
+
+  <Accordion title="How do I upgrade to a newer version?">
+    To upgrade Obsidian Portable:
+
+    <Steps>
+      <Step title="Download the Latest Version">
+        Download the latest installer from [PortableApps.com](https://portableapps.com/apps/office/obsidian-portable)
+      </Step>
+      <Step title="Run the Installer">
+        Run the installer and point it to your existing installation directory
+      </Step>
+      <Step title="Keep Your Data">
+        The installer will update the application files while preserving your Data folder and settings
+      </Step>
+    </Steps>
+
+    <Note>
+      Always back up your vaults before upgrading, especially if you're moving between major versions.
+    </Note>
+  </Accordion>
+
+  <Accordion title="What's the difference between Obsidian Portable and the standard installer?">
+    The key differences are:
+
+    | Feature | Obsidian Portable | Standard Obsidian |
+    |---------|------------------|-------------------|
+    | Installation | No installation needed | Requires installation |
+    | Settings Storage | Portable directory | User profile |
+    | Portability | Run from any location | Tied to PC |
+    | Updates | Manual download | Auto-update available |
+    | Admin Rights | Not required | May be required |
+
+    Obsidian Portable is ideal if you need to use Obsidian on multiple computers or want everything in one portable location.
+  </Accordion>
+
+  <Accordion title="Can I sync my vaults across devices?">
+    Yes! You have several options:
+
+    - **Cloud Storage**: Place your vault in a cloud folder (Dropbox, Google Drive, OneDrive, etc.)
+    - **Obsidian Sync**: Use Obsidian's official sync service (requires subscription)
+    - **Git**: Use Git for version-controlled syncing
+    - **Third-party Sync**: Use community plugins for syncing
+
+    Since Obsidian Portable stores everything in plain markdown files, any file sync solution will work.
+  </Accordion>
+
+  <Accordion title="I'm having issues launching Obsidian Portable. What should I do?">
+    Try these troubleshooting steps:
+
+    <Steps>
+      <Step title="Check the Executable">
+        Make sure you're running `ObsidianPortable.exe` from the root of the portable app directory
+      </Step>
+      <Step title="Verify File Integrity">
+        Ensure all files were extracted properly and nothing is corrupted
+      </Step>
+      <Step title="Check Permissions">
+        If running from a network drive, ensure you have proper read/write permissions
+      </Step>
+      <Step title="Review Logs">
+        Check the `Data` folder for any error logs that might indicate what's wrong
+      </Step>
+      <Step title="Reinstall">
+        If all else fails, try reinstalling (your Data folder will be preserved)
+      </Step>
+    </Steps>
+
+    For more help, see the [PortableApps.com support page](https://portableapps.com/support/portable_app).
+  </Accordion>
+
+  <Accordion title="Is my data safe with Obsidian Portable?">
+    Yes! Your data is as safe as the location you store it:
+
+    - All notes are stored as plain markdown files - no proprietary format lock-in
+    - You have complete control over where files are stored
+    - No data is sent to external servers (unless you use Obsidian Sync)
+    - Regular backups are recommended - see our backup best practices
+
+    <Note>
+      Always back up your vaults regularly, especially when storing them on portable media or cloud storage.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+## Still Have Questions?
+
+If you didn't find your answer here:
+
+<CardGroup cols={2}>
+  <Card title="Official Obsidian Help" icon="book" href="https://help.obsidian.md/">
+    Visit the official Obsidian documentation for app-specific questions
+  </Card>
+  
+  <Card title="PortableApps Support" icon="life-ring" href="https://portableapps.com/support/portable_app">
+    Get help with portable app specific issues
+  </Card>
+  
+  <Card title="GitHub Issues" icon="github" href="https://github.com/Papela/Obsidian-Portable/issues">
+    Report bugs or request features on GitHub
+  </Card>
+  
+  <Card title="Contributing" icon="code" href="/support/contributing">
+    Learn how to contribute to Obsidian Portable
+  </Card>
+</CardGroup>

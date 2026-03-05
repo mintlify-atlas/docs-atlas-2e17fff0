@@ -1,0 +1,420 @@
+---
+title: Configuration
+description: Configure Obsidian Portable settings, plugins, themes, and workspace layouts
+---
+
+Obsidian Portable stores all configuration and application data in the `Data/ObsidianAppData` directory, making your settings portable across computers.
+
+## Application Data Location
+
+When you launch Obsidian Portable, the application uses:
+
+```bash
+--user-data-dir="Data/ObsidianAppData"
+```
+
+This ensures all settings, plugins, and configurations remain within the portable directory.
+
+<Info>
+The `Data/ObsidianAppData` folder contains all Obsidian application data, separate from your actual note vaults.
+</Info>
+
+## Configuration Files
+
+### Main Configuration File
+
+Obsidian stores vault references and application settings in:
+
+```
+Data/ObsidianAppData/obsidian.json
+```
+
+This file contains:
+- Recently opened vaults and their paths
+- Vault-specific settings references
+- Application-level preferences
+
+<Warning>
+Do not manually edit `obsidian.json` while Obsidian is running. The launcher automatically updates paths when drive letters change.
+</Warning>
+
+### Path Management
+
+The launcher configuration (`App/AppInfo/Launcher/ObsidianPortable.ini`) defines how paths are updated:
+
+```ini
+[FileWrite1]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=INITIALDATADIR
+Replace=%PAL:Drive%%PAL:PackagePartialDir:DoubleBackslash%\\Data
+
+[FileWrite2]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=%PAL:LastDrive%%PAL:LastPackagePartialDir:DoubleBackslash%\\
+Replace=%PAL:Drive%%PAL:PackagePartialDir:DoubleBackslash%\\
+```
+
+These operations:
+- Replace the initial data directory placeholder
+- Update paths when the package location changes
+- Update paths when the drive letter changes
+- Update paths when moved within the PortableApps directory
+
+## Vault Configuration
+
+Each vault has its own configuration stored within the vault folder:
+
+### Vault Configuration Directory
+
+```
+YourVault/.obsidian/
+```
+
+This hidden folder contains:
+- `app.json` - Application settings for this vault
+- `appearance.json` - Theme and appearance settings
+- `workspace.json` - Current workspace layout
+- `hotkeys.json` - Custom keyboard shortcuts
+- `core-plugins.json` - Enabled core plugins
+- `community-plugins.json` - Enabled community plugins
+- `plugins/` - Installed community plugin files
+- `themes/` - Installed custom themes
+
+<Note>
+Each vault maintains its own settings, allowing different configurations for different projects.
+</Note>
+
+## Accessing Settings
+
+<Steps>
+  <Step title="Open Settings">
+    Click the gear icon in the lower-left corner, or press `Ctrl + ,`
+  </Step>
+  
+  <Step title="Navigate categories">
+    Settings are organized into categories:
+    - Editor
+    - Files & Links
+    - Appearance
+    - Hotkeys
+    - Core plugins
+    - Community plugins
+  </Step>
+  
+  <Step title="Apply changes">
+    Changes are saved automatically
+  </Step>
+</Steps>
+
+## Appearance and Themes
+
+### Built-in Themes
+
+Obsidian includes default light and dark themes:
+
+1. Open Settings → Appearance
+2. Choose "Light" or "Dark" base theme
+3. Adjust accent colors and fonts
+
+### Installing Custom Themes
+
+<Steps>
+  <Step title="Open theme browser">
+    Settings → Appearance → Manage (under Themes section)
+  </Step>
+  
+  <Step title="Browse available themes">
+    Browse the community theme gallery
+  </Step>
+  
+  <Step title="Install theme">
+    Click "Install and use" on your preferred theme
+  </Step>
+</Steps>
+
+Themes are downloaded to:
+```
+YourVault/.obsidian/themes/
+```
+
+<Info>
+In portable mode, themes are stored per-vault. To use the same theme across vaults, install it in each vault or copy the theme folder.
+</Info>
+
+### Appearance Settings
+
+Customize the interface:
+
+- **Font settings**: Change editor font, size, and monospace font
+- **Window frame**: Native or hidden frame style
+- **Translucency**: Enable window translucency (Windows 10+)
+- **Zoom level**: Adjust interface scaling
+- **CSS snippets**: Add custom CSS for advanced styling
+
+## Plugin Management
+
+### Core Plugins
+
+Obsidian includes built-in plugins:
+
+1. Open Settings → Core plugins
+2. Toggle plugins on/off:
+   - File explorer
+   - Search
+   - Quick switcher
+   - Graph view
+   - Backlinks
+   - Outgoing links
+   - Tag pane
+   - Page preview
+   - Templates
+   - Daily notes
+   - And more...
+
+<Note>
+Core plugins are part of Obsidian and do not require separate installation.
+</Note>
+
+### Community Plugins
+
+Install third-party plugins to extend functionality:
+
+<Steps>
+  <Step title="Enable community plugins">
+    Settings → Community plugins → Turn off Safe mode
+  </Step>
+  
+  <Step title="Browse plugins">
+    Click "Browse" to open the community plugin directory
+  </Step>
+  
+  <Step title="Install plugins">
+    Search for plugins and click "Install" then "Enable"
+  </Step>
+</Steps>
+
+Community plugins are stored in:
+```
+YourVault/.obsidian/plugins/
+```
+
+### Managing Installed Plugins
+
+In Settings → Community plugins:
+
+- **Enable/disable**: Toggle plugins without uninstalling
+- **Update**: Check for plugin updates
+- **Uninstall**: Remove plugins you no longer need
+- **Configure**: Access plugin-specific settings
+
+<Warning>
+Some plugins may affect performance. If Obsidian becomes slow, try disabling plugins to identify the cause.
+</Warning>
+
+### Plugin Data Portability
+
+<Info>
+When you store vaults in the portable `Data/` directory, all plugins and their configurations move with the vault.
+</Info>
+
+To sync plugin configurations across vaults:
+1. Copy `.obsidian/plugins/` from one vault to another
+2. Copy `.obsidian/community-plugins.json` to enable the same plugins
+
+## Workspace Layouts
+
+### Understanding Workspaces
+
+Workspaces save your pane arrangement, including:
+- Open notes and their positions
+- Sidebar visibility and width
+- Plugin pane locations
+
+### Managing Workspaces
+
+<Steps>
+  <Step title="Arrange your layout">
+    Open notes and arrange panes as desired
+  </Step>
+  
+  <Step title="Open workspace manager">
+    Press `Ctrl + P` and type "workspace"
+  </Step>
+  
+  <Step title="Save workspace">
+    Select "Manage workspace layouts" and save with a name
+  </Step>
+</Steps>
+
+### Loading Workspaces
+
+To switch between saved workspaces:
+
+1. Open Command Palette (`Ctrl + P`)
+2. Type the workspace name
+3. Select to load that workspace layout
+
+Workspaces are stored in:
+```
+YourVault/.obsidian/workspace.json
+```
+
+## Hotkeys and Keyboard Shortcuts
+
+### Customizing Hotkeys
+
+1. Open Settings → Hotkeys
+2. Search for the command you want to modify
+3. Click the "+" icon to add a new hotkey
+4. Press your desired key combination
+
+<CardGroup cols={2}>
+  <Card title="Editor Commands" icon="keyboard">
+    Customize shortcuts for formatting, lists, and editing operations
+  </Card>
+  
+  <Card title="Navigation" icon="arrows">
+    Set hotkeys for switching notes, opening sidebars, and moving between panes
+  </Card>
+  
+  <Card title="Plugin Commands" icon="puzzle-piece">
+    Assign shortcuts to plugin-specific commands
+  </Card>
+  
+  <Card title="Workspace Switching" icon="window-restore">
+    Quick-switch between saved workspace layouts
+  </Card>
+</CardGroup>
+
+### Hotkey Portability
+
+Custom hotkeys are saved in:
+```
+YourVault/.obsidian/hotkeys.json
+```
+
+<Info>
+Hotkey configurations are vault-specific and portable when the vault is in your portable directory.
+</Info>
+
+## Advanced Configuration
+
+### CSS Snippets
+
+Customize Obsidian's appearance with CSS:
+
+<Steps>
+  <Step title="Create snippets folder">
+    Navigate to `YourVault/.obsidian/snippets/`
+  </Step>
+  
+  <Step title="Add CSS files">
+    Create `.css` files with your custom styles
+  </Step>
+  
+  <Step title="Enable snippets">
+    Settings → Appearance → CSS snippets → Toggle on
+  </Step>
+</Steps>
+
+Example snippet:
+```css
+/* Custom heading colors */
+.markdown-preview-view h1 {
+  color: #ff6b6b;
+}
+
+.markdown-preview-view h2 {
+  color: #4ecdc4;
+}
+```
+
+### Configuration Backup
+
+Regularly back up your configuration:
+
+1. **Entire portable installation**: Copy the whole folder
+2. **Application data only**: Copy `Data/ObsidianAppData/`
+3. **Per-vault settings**: Copy `.obsidian/` from each vault
+
+<Note>
+Backing up the entire `Data/` folder preserves both application settings and any vaults stored within the portable directory.
+</Note>
+
+### Syncing Settings Across Vaults
+
+To use consistent settings across multiple vaults:
+
+1. Configure one vault as desired
+2. Copy specific files from `.obsidian/` to other vaults:
+   - `appearance.json` - Theme and appearance
+   - `hotkeys.json` - Keyboard shortcuts
+   - `core-plugins.json` - Core plugin enablement
+
+<Warning>
+Do not copy `workspace.json` between vaults as it contains vault-specific file references.
+</Warning>
+
+## Portable-Specific Settings
+
+### Directory Move Support
+
+Obsidian Portable is configured to handle directory moves:
+
+```ini
+DirectoryMoveOK=yes
+```
+
+This allows you to:
+- Move the entire portable folder to a new location
+- Rename the parent folder
+- Change drive letters
+
+Paths are automatically updated on next launch.
+
+### UNC Path Support
+
+Obsidian Portable supports network paths:
+
+```ini
+SupportsUNC=yes
+```
+
+You can:
+- Run from network shares
+- Open vaults on network drives
+- Use UNC paths like `\\server\share\vault`
+
+<Info>
+Network performance may affect Obsidian's responsiveness. For best results, use local or fast network storage.
+</Info>
+
+## Configuration Best Practices
+
+1. **Regular exports**: Export your settings periodically
+2. **Test changes**: Try new plugins and themes in a test vault first
+3. **Monitor performance**: Disable unnecessary plugins
+4. **Keep backups**: Back up both vaults and application data
+5. **Document customizations**: Keep notes about custom CSS or advanced configurations
+
+## Resetting Configuration
+
+If you need to reset settings:
+
+### Reset Application Settings
+
+1. Close Obsidian
+2. Rename or delete `Data/ObsidianAppData/`
+3. Restart Obsidian (creates fresh application data)
+
+### Reset Vault Settings
+
+1. Close Obsidian
+2. Rename or delete `YourVault/.obsidian/`
+3. Reopen the vault (creates default settings)
+
+<Warning>
+Resetting configuration will remove all customizations, installed plugins, and themes. Back up first if you want to preserve specific settings.
+</Warning>

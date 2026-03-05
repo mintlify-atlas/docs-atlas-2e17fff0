@@ -1,0 +1,179 @@
+---
+title: 'Launcher Configuration'
+description: 'Configure the PortableApps.com launcher for Obsidian Portable'
+icon: 'gear'
+---
+
+## Overview
+
+Obsidian Portable uses the PortableApps.com Launcher to manage the portable execution environment. The launcher configuration is defined in `ObsidianPortable.ini`, which controls how Obsidian runs and manages data paths.
+
+## Configuration File Location
+
+The launcher configuration file is located at:
+
+```
+ObsidianPortable/
+└── App/
+    └── AppInfo/
+        └── Launcher/
+            └── ObsidianPortable.ini
+```
+
+## ObsidianPortable.ini Structure
+
+The configuration file contains several sections that control the launcher behavior:
+
+### [Launch] Section
+
+The `[Launch]` section defines the core execution parameters for Obsidian Portable.
+
+```ini
+[Launch]
+ProgramExecutable=Obsidian.exe
+ProgramExecutable64=Obsidian.exe
+ProgramExecutableARM64=Obsidian.exe
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData"
+DirectoryMoveOK=yes
+SupportsUNC=yes
+```
+
+#### Configuration Parameters
+
+<ParamField path="ProgramExecutable" type="string" required>
+  The main executable file name for 32-bit systems. Set to `Obsidian.exe`.
+</ParamField>
+
+<ParamField path="ProgramExecutable64" type="string" required>
+  The executable file name for 64-bit systems. Set to `Obsidian.exe`.
+</ParamField>
+
+<ParamField path="ProgramExecutableARM64" type="string" required>
+  The executable file name for ARM64 systems. Set to `Obsidian.exe`.
+</ParamField>
+
+<ParamField path="CommandLineArguments" type="string">
+  Arguments passed to Obsidian on startup. Configures the user data directory to ensure portable operation.
+  
+  Default: `--user-data-dir="%PAL:DataDir%\ObsidianAppData"`
+</ParamField>
+
+<ParamField path="DirectoryMoveOK" type="boolean">
+  Allows the portable app to function correctly even if moved to a different directory.
+  
+  Default: `yes`
+</ParamField>
+
+<ParamField path="SupportsUNC" type="boolean">
+  Enables the app to run from UNC network paths (e.g., `\\server\share`).
+  
+  Default: `yes`
+</ParamField>
+
+### Path Correction Sections
+
+Obsidian Portable uses four `[FileWrite]` sections to automatically update file paths in the configuration when the portable app is moved between drives or directories.
+
+#### [FileWrite1] - Initial Data Directory
+
+```ini
+[FileWrite1]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=INITIALDATADIR
+Replace=%PAL:Drive%%PAL:PackagePartialDir:DoubleBackslash%\\Data
+```
+
+Replaces the initial placeholder `INITIALDATADIR` with the actual data directory path on first run.
+
+#### [FileWrite2] - Package Directory Update
+
+```ini
+[FileWrite2]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=%PAL:LastDrive%%PAL:LastPackagePartialDir:DoubleBackslash%\\
+Replace=%PAL:Drive%%PAL:PackagePartialDir:DoubleBackslash%\\
+```
+
+Updates paths when the package is moved to a different directory location.
+
+#### [FileWrite3] - PortableApps Base Directory Update
+
+```ini
+[FileWrite3]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=%PAL:LastDrive%%PAL:LastPortableAppsBaseDir:DoubleBackslash%\\
+Replace=%PAL:Drive%%PAL:PortableAppsBaseDir:DoubleBackslash%\\
+```
+
+Updates paths relative to the PortableApps.com base directory when moved.
+
+#### [FileWrite4] - Drive Letter Update
+
+```ini
+[FileWrite4]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=%PAL:LastDrive%\\
+Replace=%PAL:Drive%\\
+```
+
+Updates the drive letter when the portable app is moved to a different drive (e.g., from `E:` to `F:`).
+
+<Note>
+These FileWrite sections ensure that vault paths and other references in `obsidian.json` remain correct when you move your portable installation between USB drives, network locations, or different computers.
+</Note>
+
+## Environment Variables
+
+The PortableApps.com Launcher provides several environment variables that are used in the configuration:
+
+| Variable | Description |
+|----------|-------------|
+| `%PAL:DataDir%` | The `Data` directory path within the portable app |
+| `%PAL:Drive%` | The current drive letter where the app is located |
+| `%PAL:LastDrive%` | The previous drive letter from the last run |
+| `%PAL:PackagePartialDir:DoubleBackslash%` | The partial path to the package with double backslashes |
+| `%PAL:LastPackagePartialDir:DoubleBackslash%` | The previous partial path with double backslashes |
+| `%PAL:PortableAppsBaseDir:DoubleBackslash%` | The PortableApps.com base directory with double backslashes |
+| `%PAL:LastPortableAppsBaseDir:DoubleBackslash%` | The previous base directory with double backslashes |
+
+## Custom Configuration
+
+<Warning>
+Modifying the launcher configuration is for advanced users only. Incorrect settings may prevent Obsidian Portable from launching or cause data loss.
+</Warning>
+
+### When to Customize
+
+You might want to customize the launcher configuration to:
+
+- Change the location of the user data directory
+- Add additional command-line arguments for Obsidian
+- Modify path correction behavior for specific network environments
+- Disable UNC support if running only from local drives
+
+### Making Changes
+
+1. **Backup the configuration file** before making any changes
+2. Edit `App/AppInfo/Launcher/ObsidianPortable.ini` with a text editor
+3. Test your changes thoroughly after modification
+4. Keep a backup of the working configuration
+
+### Example: Custom Data Directory
+
+To change the data directory location, modify the `CommandLineArguments` line:
+
+```ini
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\CustomObsidianData"
+```
+
+Then update all `[FileWrite]` sections to reference the new directory.
+
+## Additional Resources
+
+- [PortableApps.com Launcher Documentation](https://portableapps.com/manuals/PortableApps.comLauncher/)
+- [Obsidian Command Line Arguments](/advanced/command-line-arguments)
+- [File Structure Reference](/advanced/file-structure)

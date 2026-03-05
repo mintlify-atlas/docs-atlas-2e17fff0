@@ -1,0 +1,135 @@
+---
+title: Introduction to Obsidian Portable
+description: A portable distribution of Obsidian markdown note-taking app for Windows that runs from anywhere without installation
+---
+
+# Introduction to Obsidian Portable
+
+Obsidian Portable is a portable distribution of Obsidian, the powerful plain-text markdown note-taking application. Packaged with a PortableApps.com launcher, it allows you to use Obsidian from a USB drive, cloud folder, or local directory without needing to install it on each PC.
+
+## What is Obsidian Portable?
+
+Obsidian Portable takes the full-featured Obsidian markdown editor and packages it as a completely portable application. This means:
+
+- **No installation required** - Run directly from any location
+- **Your data travels with you** - All settings and vaults stay in the portable directory
+- **No registry changes** - Leaves no trace on host computers
+- **Drive letter independent** - Works even when your drive letter changes
+
+<Info>
+Obsidian Portable uses the `--user-data-dir` parameter to store all application data within the portable directory structure, ensuring complete portability.
+</Info>
+
+## Key Benefits
+
+<CardGroup cols={2}>
+  <Card title="True Portability" icon="usb-drive">
+    Run from USB drives, cloud storage, or any local folder. Your complete Obsidian environment moves with you.
+  </Card>
+  
+  <Card title="No Installation" icon="ban">
+    No admin rights needed. Extract and run - it's that simple.
+  </Card>
+  
+  <Card title="Multi-Computer Sync" icon="arrows-rotate">
+    Use the same Obsidian configuration across multiple computers by running from cloud storage like Dropbox or OneDrive.
+  </Card>
+  
+  <Card title="Privacy First" icon="shield">
+    All your notes and data remain local. No account required unless you want to use Obsidian Sync or Publish services.
+  </Card>
+</CardGroup>
+
+## Use Cases
+
+Obsidian Portable is perfect for:
+
+- **Students and Researchers** - Take your knowledge base to school, library, or lab computers
+- **IT Professionals** - Carry your documentation and notes on a USB drive
+- **Writers** - Work on your manuscripts from any computer without setup
+- **Privacy-Conscious Users** - Keep your notes on encrypted USB drives
+- **Multi-Computer Users** - Seamlessly work across multiple PCs with cloud storage
+
+## Comparison with Standard Obsidian
+
+| Feature | Standard Obsidian | Obsidian Portable |
+|---------|------------------|-------------------|
+| Installation | Required | Not required |
+| Registry entries | Yes | No |
+| User data location | `%APPDATA%` | Portable directory |
+| Drive letter changes | N/A | Automatically handled |
+| Admin rights | May be required | Not required |
+| Leaves PC clean | No | Yes |
+
+## How It Works
+
+Obsidian Portable uses the PortableApps.com launcher framework to:
+
+1. Launch Obsidian with `--user-data-dir` pointing to the portable `Data` directory
+2. Automatically update vault paths when the drive letter changes
+3. Store all settings, plugins, and themes in the portable directory
+4. Clean up temporary files on exit
+
+<Note>
+The launcher configuration (`ObsidianPortable.ini`) handles path replacements automatically, updating references in `obsidian.json` when your drive letter changes.
+</Note>
+
+## System Requirements
+
+<Steps>
+  <Step title="Operating System">
+    Windows 7 or later (Windows 10/11 recommended)
+  </Step>
+  
+  <Step title="Storage">
+    Minimum 500 MB free space (more for your vaults and data)
+  </Step>
+  
+  <Step title="Permissions">
+    Write access to the portable directory (no admin rights required)
+  </Step>
+  
+  <Step title="Display">
+    1024x768 minimum resolution
+  </Step>
+</Steps>
+
+## Version Information
+
+Current version: **1.11.5** (as of January 2026)
+
+- Based on official Obsidian for Windows releases
+- Regular updates following Obsidian's release schedule
+- Maintained by [@Papela](https://github.com/Papela) and PortableApps.com community
+
+## Licensing
+
+<Warning>
+**Important:** Obsidian itself has specific licensing requirements:
+
+- **Personal Use**: Free forever
+- **Commercial Use**: If you use Obsidian for work in a company with 2+ people, you need a Commercial Use License ($50/user/year)
+- **Non-Profit Organizations**: Free (no commercial license required)
+- **Educational Use**: Free (no commercial license required)
+</Warning>
+
+The portable packaging is licensed under GPL-3.0. See the [LICENSE](https://github.com/Papela/Obsidian-Portable/blob/main/LICENSE) file for details.
+
+## Data Privacy
+
+Your data privacy is paramount:
+
+- All notes are stored locally on your device
+- No account creation required for basic use
+- No data sent to servers (unless using Obsidian Sync/Publish)
+- No telemetry or tracking in the portable launcher
+
+<Info>
+Obsidian Portable is perfect for users who want complete control over their data location and privacy.
+</Info>
+
+## Next Steps
+
+Ready to get started? Head to the [Installation Guide](/installation) to download and set up Obsidian Portable.
+
+For a quick 5-minute setup walkthrough, check out the [Quick Start Guide](/quickstart).

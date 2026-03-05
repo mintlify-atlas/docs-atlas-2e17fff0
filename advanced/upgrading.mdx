@@ -1,0 +1,307 @@
+---
+title: 'Upgrading Obsidian Portable'
+description: 'How to safely upgrade to new versions while preserving your data'
+icon: 'arrow-up-right-dots'
+---
+
+## Overview
+
+Obsidian Portable can be upgraded to newer versions while preserving all your vaults, settings, and data. The upgrade process replaces the application files while keeping your Data directory intact.
+
+## Current Version
+
+The latest version of Obsidian Portable includes:
+- **Obsidian Version**: 1.11.5
+- **Package Version**: 1.11.5.0
+- **Format**: PortableApps.com Format 3.7
+
+<Note>
+You can check your current version by looking at `App/AppInfo/appinfo.ini` or running ObsidianPortable.exe and checking Help → About in Obsidian.
+</Note>
+
+## Before You Upgrade
+
+### 1. Backup Your Data
+
+Always create a backup before upgrading, even though the process preserves your data.
+
+**What to backup:**
+
+<CodeGroup>
+```bash Complete Backup
+# Copy the entire Data directory
+ObsidianPortable/
+└── Data/                    # Backup this entire folder
+    ├── ObsidianAppData/
+    └── Vaults/ (if stored here)
+```
+
+```bash Minimal Backup
+# At minimum, backup these critical files
+ObsidianPortable/
+└── Data/
+    └── ObsidianAppData/
+        └── obsidian.json    # Vault paths and configuration
+```
+</CodeGroup>
+
+**Recommended backup locations:**
+- External hard drive
+- Cloud storage (Dropbox, Google Drive, OneDrive)
+- Different partition or drive
+- Network storage
+
+### 2. Close Obsidian
+
+Ensure Obsidian is completely closed before upgrading:
+
+1. Exit Obsidian normally (File → Exit or close all windows)
+2. Check Task Manager (Ctrl+Shift+Esc) to verify `Obsidian.exe` is not running
+3. Wait a few seconds for any background processes to finish
+
+<Warning>
+Upgrading while Obsidian is running may result in file corruption or incomplete updates.
+</Warning>
+
+### 3. Document Your Current Setup
+
+Note your current configuration:
+- List of installed community plugins
+- Custom CSS snippets
+- Hotkey customizations
+- Vault locations (especially if outside the Data directory)
+
+## Upgrade Methods
+
+### Method 1: Using PortableApps.com Platform (Recommended)
+
+If you use the PortableApps.com Platform, upgrades are automatic:
+
+1. Launch the PortableApps.com Platform
+2. Click **Check for Updates**
+3. Select **Obsidian Portable** from the update list
+4. Click **Update**
+5. Wait for the download and installation to complete
+6. Launch Obsidian Portable to verify the update
+
+The Platform automatically:
+- Downloads the latest version
+- Preserves your Data directory
+- Updates only the App directory
+- Maintains your portable configuration
+
+### Method 2: Manual Upgrade
+
+For standalone installations without the Platform:
+
+#### Step 1: Download New Version
+
+1. Visit [PortableApps.com Obsidian Portable page](https://portableapps.com/apps/office/obsidian-portable)
+2. Download the latest installer (e.g., `ObsidianPortable_1.11.5.paf.exe`)
+3. Save to a temporary location
+
+#### Step 2: Backup Current Installation
+
+```bash
+Backup-2026-03-05/
+├── Data/                    # Copy entire Data folder
+├── obsidian.json.backup     # Extra copy of vault config
+└── notes.txt                # Document your setup
+```
+
+#### Step 3: Run Installer
+
+1. Run the downloaded `.paf.exe` file
+2. **Select the same installation directory** as your current installation
+3. The installer will prompt: *"ObsidianPortable is already installed. Would you like to upgrade?"*
+4. Click **Yes** to proceed
+5. Wait for installation to complete
+
+<Note>
+The installer intelligently preserves the Data directory while updating App files.
+</Note>
+
+#### Step 4: Verify Upgrade
+
+1. Navigate to your installation directory
+2. Check `App/AppInfo/appinfo.ini` to verify the new version:
+
+```ini
+[Version]
+PackageVersion=1.11.5.0
+DisplayVersion=1.11.5
+```
+
+3. Launch `ObsidianPortable.exe`
+4. Verify your vaults are accessible
+5. Check that settings and plugins are intact
+
+### Method 3: Fresh Install with Data Migration
+
+For a clean installation (useful for troubleshooting):
+
+1. **Backup** the entire `Data` directory from your current installation
+2. **Install** Obsidian Portable to a new directory
+3. **Close** the newly installed Obsidian
+4. **Replace** the new `Data` directory with your backup
+5. **Launch** Obsidian Portable from the new location
+
+<Warning>
+After migrating data to a new location, the vault paths in `obsidian.json` will be automatically updated on first launch thanks to the launcher's FileWrite configuration.
+</Warning>
+
+## Preserving Data
+
+### What Gets Preserved
+
+During upgrades, the following are automatically preserved:
+
+✅ **Always Preserved:**
+- All vaults (if stored in Data directory)
+- Vault configurations and settings
+- Installed community plugins
+- Custom themes and CSS snippets
+- Hotkey configurations
+- Workspace layouts
+- Graph view settings
+- File recovery snapshots
+- Cache and index data
+
+### What Gets Replaced
+
+❌ **Replaced During Upgrade:**
+- Obsidian application files (`App/Obsidian/`)
+- Launcher executable (`ObsidianPortable.exe`)
+- Application icons and metadata
+- Help files
+
+<Note>
+The `App/AppInfo/Launcher/ObsidianPortable.ini` configuration is typically replaced, but since it rarely requires customization, this is usually not an issue. If you've customized it, back it up separately.
+</Note>
+
+### External Vaults
+
+If your vaults are stored outside the Data directory:
+
+```
+USB Drive/
+├── ObsidianPortable/
+│   └── Data/
+│       └── ObsidianAppData/
+│           └── obsidian.json    # Contains paths to external vaults
+└── MyVaults/
+    ├── WorkVault/
+    └── PersonalVault/
+```
+
+The upgrade process preserves `obsidian.json`, which contains the paths to your external vaults. Your vaults remain accessible after upgrading.
+
+## Version Compatibility
+
+### Obsidian Version History
+
+Recent Obsidian Portable releases:
+
+| Version | Release Date | Notable Changes |
+|---------|--------------|------------------|
+| 1.11.5  | 2026-01-20   | Latest release |
+| 1.9.12  | 2025-08-26   | |
+| 1.8.7   | 2025-02-18   | |
+| 1.6.5   | 2024-06-25   | |
+| 1.4.13  | 2023-09-15   | |
+
+### Plugin Compatibility
+
+After upgrading:
+
+1. Launch Obsidian
+2. Go to **Settings → Community Plugins**
+3. Click **Check for updates**
+4. Update any plugins that have new versions
+
+<Warning>
+Some community plugins may require updates to work with newer Obsidian versions. Check plugin compatibility before upgrading if you rely on specific plugins.
+</Warning>
+
+### Downgrading
+
+If you need to revert to an older version:
+
+1. Download the older version installer
+2. Follow the manual upgrade process (Method 2)
+3. Install to the same directory
+
+<Note>
+Downgrading is generally safe, but some newer plugins may not be compatible with older Obsidian versions.
+</Note>
+
+## Troubleshooting Upgrades
+
+### Upgrade Fails to Complete
+
+**Symptoms**: Installer hangs or shows errors
+
+**Solutions**:
+1. Ensure Obsidian is completely closed
+2. Check that you have write permissions to the installation directory
+3. Temporarily disable antivirus software
+4. Run the installer as Administrator (right-click → Run as Administrator)
+5. Try a fresh install with data migration (Method 3)
+
+### Vaults Not Appearing After Upgrade
+
+**Symptoms**: Obsidian launches but vaults are missing
+
+**Solutions**:
+1. Check `Data/ObsidianAppData/obsidian.json` exists and is not empty
+2. Restore `obsidian.json` from backup
+3. Manually re-add vaults through Obsidian (File → Open vault)
+4. Verify vault paths if stored externally
+
+### Plugins Not Working
+
+**Symptoms**: Plugins fail to load or cause errors
+
+**Solutions**:
+1. Update all plugins (Settings → Community Plugins → Check for updates)
+2. Disable incompatible plugins
+3. Check plugin compatibility with the new Obsidian version
+4. Clear cache: Delete `Data/ObsidianAppData/Cache/` and restart
+
+### Settings Reset
+
+**Symptoms**: Settings return to defaults after upgrade
+
+**Solutions**:
+1. Restore from backup if available
+2. Check that `Data/ObsidianAppData/` was preserved
+3. Verify you upgraded (not fresh installed) to the same directory
+
+## Best Practices
+
+<Card title="Regular Backups" icon="clock">
+  Schedule regular backups of your Data directory, not just before upgrades. Consider using automated backup tools or version control for your vaults.
+</Card>
+
+<Card title="Test After Upgrading" icon="vial">
+  After upgrading, test core functionality:
+  - Open all vaults
+  - Test critical plugins
+  - Verify sync if using third-party sync
+  - Check custom CSS and themes
+</Card>
+
+<Card title="Stay Informed" icon="newspaper">
+  Monitor Obsidian changelogs and community forums for known issues with new releases before upgrading.
+</Card>
+
+<Card title="Staged Rollout" icon="timeline">
+  If using Obsidian Portable in a team or organization, test upgrades on a single machine before deploying widely.
+</Card>
+
+## Related Resources
+
+- [Obsidian Official Changelog](https://obsidian.md/changelog/)
+- [File Structure Reference](/advanced/file-structure)
+- [Launcher Configuration](/advanced/launcher-configuration)
+- [Portability Guide](/guide/portability) - Understanding portable data management

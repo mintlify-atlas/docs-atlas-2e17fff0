@@ -1,0 +1,382 @@
+---
+title: 'Command-Line Arguments'
+description: 'Advanced launch configurations and command-line options'
+icon: 'terminal'
+---
+
+## Overview
+
+Obsidian Portable supports various command-line arguments that control application behavior, data locations, and advanced features. These arguments are passed through the PortableApps.com launcher.
+
+## Obsidian Command-Line Arguments
+
+### --user-data-dir
+
+The primary argument used by Obsidian Portable to ensure portability.
+
+**Syntax:**
+```bash
+Obsidian.exe --user-data-dir="path/to/data"
+```
+
+**Usage in Obsidian Portable:**
+
+Configured in `App/AppInfo/Launcher/ObsidianPortable.ini`:
+
+```ini
+[Launch]
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData"
+```
+
+**Purpose:**
+- Specifies where Obsidian stores its user data (cache, settings, vault configurations)
+- Ensures all data is contained within the portable directory structure
+- Automatically updated by the launcher when the portable app is moved
+
+**Default Value:**
+```
+ObsidianPortable/Data/ObsidianAppData
+```
+
+<Note>
+The `--user-data-dir` argument is critical for portability. Without it, Obsidian would store data in the system's AppData directory, defeating the purpose of a portable installation.
+</Note>
+
+### --disable-gpu
+
+Disables GPU hardware acceleration.
+
+**Syntax:**
+```bash
+Obsidian.exe --disable-gpu
+```
+
+**When to Use:**
+- Running on systems with incompatible or outdated graphics drivers
+- Experiencing rendering issues or crashes related to GPU
+- Using Obsidian via Remote Desktop or VNC
+- Running in virtual machines with limited graphics support
+
+**How to Enable:**
+
+Modify `ObsidianPortable.ini`:
+
+```ini
+[Launch]
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData" --disable-gpu
+```
+
+<Warning>
+Disabling GPU acceleration may reduce performance for graphics-intensive features like Canvas and graph view.
+</Warning>
+
+### --no-sandbox
+
+Disables the Chromium sandbox.
+
+**Syntax:**
+```bash
+Obsidian.exe --no-sandbox
+```
+
+**When to Use:**
+- Running in certain restricted environments
+- Compatibility with older systems
+- Troubleshooting launch issues
+
+**Security Note:**
+
+<Warning>
+The `--no-sandbox` flag reduces security by disabling process isolation. Only use this if absolutely necessary and understand the security implications.
+</Warning>
+
+### --enable-features / --disable-features
+
+Enable or disable specific Chromium features.
+
+**Syntax:**
+```bash
+Obsidian.exe --enable-features=feature1,feature2
+Obsidian.exe --disable-features=feature3,feature4
+```
+
+**Common Use Cases:**
+
+```bash
+# Enable specific hardware acceleration features
+--enable-features=VaapiVideoDecoder
+
+# Disable specific features causing issues
+--disable-features=NetworkService
+```
+
+### --force-device-scale-factor
+
+Override the display scaling factor.
+
+**Syntax:**
+```bash
+Obsidian.exe --force-device-scale-factor=1.5
+```
+
+**When to Use:**
+- High-DPI displays with scaling issues
+- Force specific zoom levels for better readability
+- Testing UI at different scale factors
+
+**Example Values:**
+- `1.0` - 100% scale (default)
+- `1.25` - 125% scale
+- `1.5` - 150% scale
+- `2.0` - 200% scale
+
+### --allow-file-access-from-files
+
+Allows file:// URLs to access other file:// URLs.
+
+**Syntax:**
+```bash
+Obsidian.exe --allow-file-access-from-files
+```
+
+**When to Use:**
+- Enabling certain local file operations in custom plugins
+- Development and testing scenarios
+
+## PortableApps.com Launcher Arguments
+
+The PortableApps.com launcher (`ObsidianPortable.exe`) accepts its own arguments.
+
+### Standard Launch
+
+```bash
+ObsidianPortable.exe
+```
+
+Launches Obsidian normally using the configured settings.
+
+### Passing Arguments Through the Launcher
+
+Arguments after the launcher are passed to Obsidian:
+
+```bash
+ObsidianPortable.exe --disable-gpu
+```
+
+This combines the configured `--user-data-dir` with the additional `--disable-gpu` argument.
+
+## Advanced Configuration Examples
+
+### Example 1: Disable GPU for Compatibility
+
+**Scenario**: Running on older hardware or via Remote Desktop
+
+**Configuration** (`ObsidianPortable.ini`):
+
+```ini
+[Launch]
+ProgramExecutable=Obsidian.exe
+ProgramExecutable64=Obsidian.exe
+ProgramExecutableARM64=Obsidian.exe
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData" --disable-gpu
+DirectoryMoveOK=yes
+SupportsUNC=yes
+```
+
+### Example 2: High-DPI Display Optimization
+
+**Scenario**: 4K display with scaling issues
+
+**Configuration**:
+
+```ini
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData" --force-device-scale-factor=1.5
+```
+
+### Example 3: Multiple Arguments for Troubleshooting
+
+**Scenario**: Debugging issues in a restricted environment
+
+**Configuration**:
+
+```ini
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData" --disable-gpu --no-sandbox --enable-logging
+```
+
+<Warning>
+This configuration reduces security and should only be used temporarily for troubleshooting.
+</Warning>
+
+### Example 4: Custom User Data Location
+
+**Scenario**: Store app data in a different location (e.g., encrypted volume)
+
+**Configuration**:
+
+```ini
+CommandLineArguments=--user-data-dir="E:\SecureData\ObsidianAppData"
+```
+
+<Note>
+Using absolute paths defeats portability. This is only useful for specialized setups where the drive letter is guaranteed to remain constant.
+</Note>
+
+## Environment Variables
+
+The PortableApps.com launcher supports environment variables in the configuration:
+
+### Available Variables
+
+| Variable | Description | Example Value |
+|----------|-------------|---------------|
+| `%PAL:DataDir%` | Data directory | `E:\ObsidianPortable\Data` |
+| `%PAL:Drive%` | Current drive | `E:` |
+| `%PAL:AppDir%` | App directory | `E:\ObsidianPortable\App` |
+| `%PAL:PackageDir%` | Package root | `E:\ObsidianPortable` |
+
+### Using Environment Variables
+
+```ini
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData" --app-path="%PAL:AppDir%"
+```
+
+## Command-Line Vault Opening
+
+Obsidian supports opening specific vaults from the command line.
+
+### Open Specific Vault
+
+```bash
+ObsidianPortable.exe obsidian://open?vault=MyVault
+```
+
+### Open Specific File
+
+```bash
+ObsidianPortable.exe obsidian://open?vault=MyVault&file=Note.md
+```
+
+### URI Scheme
+
+Obsidian uses the `obsidian://` URI scheme for deep linking:
+
+```
+obsidian://action?parameter1=value1&parameter2=value2
+```
+
+**Common Actions:**
+- `open` - Open vault or file
+- `search` - Open search with query
+- `new` - Create new note
+
+**Examples:**
+
+<CodeGroup>
+```bash Open Vault
+obsidian://open?vault=WorkNotes
+```
+
+```bash Open File
+obsidian://open?vault=WorkNotes&file=Projects/Project1.md
+```
+
+```bash Search
+obsidian://search?vault=WorkNotes&query=meeting+notes
+```
+
+```bash New Note
+obsidian://new?vault=WorkNotes&name=Daily+Note
+```
+</CodeGroup>
+
+## Batch File Automation
+
+Create batch files for common launch configurations.
+
+### Basic Launch Script
+
+```batch launch-obsidian.bat
+@echo off
+cd /d "%~dp0"
+start ObsidianPortable.exe
+```
+
+### Launch with GPU Disabled
+
+```batch launch-safe-mode.bat
+@echo off
+cd /d "%~dp0"
+start ObsidianPortable.exe --disable-gpu --no-sandbox
+```
+
+### Launch Specific Vault
+
+```batch launch-work-vault.bat
+@echo off
+cd /d "%~dp0"
+start ObsidianPortable.exe obsidian://open?vault=WorkVault
+```
+
+### Advanced Launch with Logging
+
+```batch launch-debug.bat
+@echo off
+cd /d "%~dp0"
+set OBSIDIAN_LOG=1
+start ObsidianPortable.exe --enable-logging --log-level=0
+```
+
+## Troubleshooting with Arguments
+
+### Issue: Rendering Problems
+
+**Try:**
+```bash
+ObsidianPortable.exe --disable-gpu
+```
+
+### Issue: Slow Performance
+
+**Try:**
+```bash
+ObsidianPortable.exe --disable-hardware-acceleration=false
+```
+
+### Issue: Launch Failures
+
+**Try:**
+```bash
+ObsidianPortable.exe --no-sandbox --disable-gpu
+```
+
+### Issue: High-DPI Scaling
+
+**Try:**
+```bash
+ObsidianPortable.exe --force-device-scale-factor=1.25
+```
+
+## Best Practices
+
+<Card title="Test Before Committing" icon="flask">
+  Test command-line arguments by running them manually before modifying `ObsidianPortable.ini`. This allows easy reversal if something goes wrong.
+</Card>
+
+<Card title="Document Custom Configurations" icon="file-lines">
+  Keep a text file documenting any custom arguments you've added and why. This helps when troubleshooting or upgrading.
+</Card>
+
+<Card title="Preserve Portability" icon="usb-drive">
+  Avoid using absolute paths in arguments unless absolutely necessary. Use environment variables like `%PAL:DataDir%` instead.
+</Card>
+
+<Card title="Security First" icon="shield">
+  Only use security-reducing arguments (like `--no-sandbox`) in controlled environments where you understand the risks.
+</Card>
+
+## Related Resources
+
+- [Launcher Configuration](/advanced/launcher-configuration) - Detailed launcher configuration reference
+- [Obsidian URI Documentation](https://help.obsidian.md/Extending+Obsidian/Obsidian+URI) - Official URI scheme documentation
+- [Chromium Command-Line Switches](https://peter.sh/experiments/chromium-command-line-switches/) - Full list of Chromium flags
+- [File Structure](/advanced/file-structure) - Understanding the portable directory structure

@@ -1,0 +1,296 @@
+---
+title: Installation Guide
+description: Step-by-step instructions to download, install, and configure Obsidian Portable on Windows
+---
+
+# Installation Guide
+
+Get Obsidian Portable up and running in minutes. This guide covers downloading, extracting, and performing first-run setup.
+
+## Download Obsidian Portable
+
+<Steps>
+  <Step title="Visit the Releases Page">
+    Navigate to the [Obsidian Portable GitHub Releases](https://github.com/Papela/Obsidian-Portable/releases) page.
+  </Step>
+  
+  <Step title="Download Latest Version">
+    Download the latest release package (currently version 1.11.5). The file will be named something like `ObsidianPortable_1.11.5.paf.exe`.
+    
+    <Info>
+    The `.paf.exe` extension stands for "PortableApps.com Format" - it's a self-extracting installer that doesn't require admin rights.
+    </Info>
+  </Step>
+  
+  <Step title="Verify the Download">
+    Ensure the download completed successfully. The file size should be approximately 150-200 MB.
+  </Step>
+</Steps>
+
+## Choose Your Installation Location
+
+Before installing, decide where you want to run Obsidian Portable from:
+
+<CardGroup cols={3}>
+  <Card title="USB Drive" icon="usb-drive">
+    **Best for:** Moving between computers
+    
+    Extract to: `E:\PortableApps\ObsidianPortable\`
+    
+    (Replace E: with your USB drive letter)
+  </Card>
+  
+  <Card title="Cloud Storage" icon="cloud">
+    **Best for:** Syncing across your own computers
+    
+    Extract to:
+    - Dropbox: `C:\Users\YourName\Dropbox\PortableApps\ObsidianPortable\`
+    - OneDrive: `C:\Users\YourName\OneDrive\PortableApps\ObsidianPortable\`
+    - Google Drive: `G:\My Drive\PortableApps\ObsidianPortable\`
+  </Card>
+  
+  <Card title="Local Directory" icon="folder">
+    **Best for:** Single computer, no admin rights
+    
+    Extract to: `C:\PortableApps\ObsidianPortable\`
+    
+    or anywhere on your PC
+  </Card>
+</CardGroup>
+
+<Warning>
+**Important:** Make sure you have write permissions to your chosen location. Obsidian Portable needs to create and modify files in its directory.
+</Warning>
+
+## Installation Steps
+
+<Steps>
+  <Step title="Run the Installer">
+    Double-click the downloaded `ObsidianPortable_1.11.5.paf.exe` file.
+    
+    <Note>
+    No admin rights are required. If Windows SmartScreen appears, click "More info" then "Run anyway".
+    </Note>
+  </Step>
+  
+  <Step title="Select Installation Location">
+    In the PortableApps.com installer:
+    
+    1. Click **Browse** to choose your destination folder
+    2. Select your desired location (USB, cloud, or local)
+    3. The installer will create an `ObsidianPortable` folder
+    
+    ```plaintext
+    Example paths:
+    E:\PortableApps\ObsidianPortable\          (USB drive)
+    C:\PortableApps\ObsidianPortable\          (Local)
+    D:\Dropbox\Apps\ObsidianPortable\          (Cloud)
+    ```
+  </Step>
+  
+  <Step title="Complete Installation">
+    Click **Install** and wait for extraction to complete (typically 30-60 seconds).
+    
+    The installer will create this directory structure:
+    
+    ```plaintext
+    ObsidianPortable/
+    ├── App/
+    │   └── AppInfo/
+    │       ├── appinfo.ini
+    │       ├── Launcher/
+    │       │   └── ObsidianPortable.ini
+    │       └── EULA.txt
+    ├── Data/
+    │   ├── ObsidianAppData/
+    │   └── PortableApps.comInstaller/
+    ├── ObsidianPortable.exe
+    └── help.html
+    ```
+  </Step>
+  
+  <Step title="Launch Obsidian Portable">
+    Double-click `ObsidianPortable.exe` in the installation folder.
+  </Step>
+</Steps>
+
+## First-Run Setup
+
+When you launch Obsidian Portable for the first time:
+
+<Steps>
+  <Step title="Welcome Screen">
+    Obsidian will display the welcome screen with options to:
+    - Create new vault
+    - Open folder as vault
+    - Open help vault
+  </Step>
+  
+  <Step title="Create Your First Vault">
+    For a portable setup, it's recommended to create your vault inside the Obsidian Portable directory:
+    
+    1. Click **Create new vault**
+    2. Set vault name (e.g., "My Notes")
+    3. **Important:** Click **Browse** and navigate to:
+    
+    ```plaintext
+    ObsidianPortable/Data/Vaults/
+    ```
+    
+    <Warning>
+    Creating vaults inside the `Data` folder ensures they move with your portable installation. Vaults outside this directory won't be portable.
+    </Warning>
+  </Step>
+  
+  <Step title="Configure Settings (Optional)">
+    The launcher automatically configures the user data directory:
+    
+    ```ini
+    CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData"
+    ```
+    
+    All your settings, plugins, and themes will be stored in:
+    ```plaintext
+    ObsidianPortable/Data/ObsidianAppData/
+    ```
+  </Step>
+</Steps>
+
+## Verify Installation
+
+Confirm everything is working correctly:
+
+<Steps>
+  <Step title="Check Application Launch">
+    Close and reopen `ObsidianPortable.exe`. The application should start without errors.
+  </Step>
+  
+  <Step title="Verify Data Directory">
+    Open Settings (Ctrl+,) and check that Obsidian is using the portable data directory.
+    
+    Your configuration file should be located at:
+    ```plaintext
+    Data/ObsidianAppData/obsidian.json
+    ```
+  </Step>
+  
+  <Step title="Test Portability (Optional)">
+    If using a USB drive:
+    
+    1. Close Obsidian Portable
+    2. Safely eject your USB drive
+    3. Reconnect it (it may get a different drive letter)
+    4. Launch ObsidianPortable.exe again
+    5. Verify your vaults are still accessible
+    
+    <Info>
+    The launcher automatically updates vault paths when the drive letter changes using the FileWrite directives in `ObsidianPortable.ini`.
+    </Info>
+  </Step>
+</Steps>
+
+## Installation Locations Explained
+
+### Directory Structure
+
+After installation, your directory structure will look like this:
+
+```plaintext
+ObsidianPortable/
+├── App/
+│   └── AppInfo/
+│       ├── appinfo.ini          # Package metadata
+│       ├── appicon.ico          # Application icon
+│       ├── EULA.txt             # Obsidian license
+│       └── Launcher/
+│           └── ObsidianPortable.ini  # Launcher configuration
+├── Data/
+│   ├── ObsidianAppData/         # User data directory
+│   │   ├── obsidian.json        # Obsidian configuration
+│   │   ├── Cache/
+│   │   ├── Local Storage/
+│   │   └── Session Storage/
+│   ├── Vaults/                  # Recommended vault location
+│   │   └── My Notes/            # Your vaults here
+│   └── PortableApps.comInstaller/
+├── ObsidianPortable.exe         # Launcher executable
+└── help.html                     # Quick help reference
+```
+
+### What Each Directory Does
+
+- **App/**: Contains application metadata and launcher configuration
+- **Data/ObsidianAppData/**: Stores all Obsidian settings, plugins, themes, and cache
+- **Data/Vaults/**: Recommended location for your portable vaults
+- **ObsidianPortable.exe**: Main launcher that starts Obsidian with portable parameters
+
+## Upgrading Obsidian Portable
+
+To upgrade to a newer version:
+
+<Steps>
+  <Step title="Backup Your Data">
+    Copy the entire `Data` folder to a safe location as a backup.
+  </Step>
+  
+  <Step title="Download New Version">
+    Download the latest release from GitHub.
+  </Step>
+  
+  <Step title="Install Over Existing">
+    Run the new installer and select your existing `ObsidianPortable` folder.
+    
+    <Warning>
+    The installer will update the `App` folder but preserve your `Data` folder.
+    </Warning>
+  </Step>
+  
+  <Step title="Verify Upgrade">
+    Launch ObsidianPortable.exe and verify your vaults and settings are intact.
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Obsidian won't start">
+    - Verify you have write permissions to the installation directory
+    - Check that Windows Defender or antivirus isn't blocking the executable
+    - Try running from a local directory first to rule out USB/network issues
+  </Accordion>
+  
+  <Accordion title="Settings aren't portable">
+    - Confirm vaults are created inside `Data/Vaults/`
+    - Check that `Data/ObsidianAppData/obsidian.json` exists
+    - Verify the launcher is using the correct `--user-data-dir` parameter
+  </Accordion>
+  
+  <Accordion title="Vaults disappear after drive letter change">
+    The launcher should handle this automatically via the FileWrite directives in `ObsidianPortable.ini`. If vaults still disappear:
+    
+    - Check that you're launching via `ObsidianPortable.exe` (not `Obsidian.exe` directly)
+    - Verify vault paths in `Data/ObsidianAppData/obsidian.json` are being updated
+  </Accordion>
+  
+  <Accordion title="Cloud sync conflicts">
+    When running from cloud storage:
+    
+    - Only run one instance at a time
+    - Wait for cloud sync to complete before launching on another PC
+    - Consider using Obsidian's built-in Sync instead of cloud storage for active multi-device use
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+Now that Obsidian Portable is installed:
+
+- Follow the [Quick Start Guide](/quickstart) for a 5-minute walkthrough
+- Learn about [Using Obsidian Portable](/guide/using-obsidian-portable)
+- Explore [Configuration Options](/guide/configuration)
+
+## Additional Resources
+
+- [Obsidian Official Documentation](https://help.obsidian.md/)
+- [PortableApps.com Support](https://portableapps.com/support/portable_app)
+- [GitHub Repository](https://github.com/Papela/Obsidian-Portable)

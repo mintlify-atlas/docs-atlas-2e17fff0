@@ -1,0 +1,216 @@
+---
+title: Contributing
+description: How to contribute to Obsidian Portable
+---
+
+## Contributing to Obsidian Portable
+
+Thank you for your interest in contributing to Obsidian Portable! This project is maintained by [@Papela](https://github.com/Papela) and the community.
+
+## Ways to Contribute
+
+There are several ways you can help improve Obsidian Portable:
+
+<CardGroup cols={2}>
+  <Card title="Report Issues" icon="bug" href="https://github.com/Papela/Obsidian-Portable/issues">
+    Found a bug? Let us know by opening an issue on GitHub
+  </Card>
+  
+  <Card title="Submit Code" icon="code" href="https://github.com/Papela/Obsidian-Portable">
+    Contribute code improvements via pull requests
+  </Card>
+  
+  <Card title="Improve Docs" icon="book" href="https://github.com/Papela/Obsidian-Portable">
+    Help improve documentation and help files
+  </Card>
+  
+  <Card title="Support Development" icon="heart" href="https://ko-fi.com/papela">
+    Support the project financially through Ko-fi
+  </Card>
+</CardGroup>
+
+## Code Contributions
+
+If you want to contribute code to this project, follow these steps:
+
+<Steps>
+  <Step title="Fork the Repository">
+    Fork the [Obsidian Portable repository](https://github.com/Papela/Obsidian-Portable) to your GitHub account
+    
+    ```bash
+    # Clone your fork
+    git clone https://github.com/YOUR-USERNAME/Obsidian-Portable.git
+    cd Obsidian-Portable
+    ```
+  </Step>
+
+  <Step title="Create a Feature Branch">
+    Create a branch for your new feature or bug fix
+    
+    ```bash
+    git checkout -b new-feature
+    ```
+    
+    Use a descriptive branch name that explains what you're working on, such as:
+    - `fix-launcher-crash`
+    - `add-auto-update`
+    - `improve-settings-dialog`
+  </Step>
+
+  <Step title="Make Your Changes">
+    Make your changes and commit them with clear, descriptive commit messages
+    
+    ```bash
+    # Make your changes
+    git add .
+    git commit -m "Added new functionality"
+    ```
+    
+    <Note>
+      Write clear commit messages that explain **why** the change was made, not just what was changed.
+    </Note>
+  </Step>
+
+  <Step title="Push to Your Fork">
+    Push your changes to your forked repository
+    
+    ```bash
+    git push origin new-feature
+    ```
+  </Step>
+
+  <Step title="Open a Pull Request">
+    Go to the [original repository](https://github.com/Papela/Obsidian-Portable) on GitHub and open a pull request
+    
+    In your pull request:
+    - Clearly describe what your changes do
+    - Reference any related issues
+    - Explain why the changes are needed
+    - Include screenshots if relevant
+  </Step>
+</Steps>
+
+## Reporting Issues
+
+When reporting issues, please provide:
+
+- **Clear Description**: Explain what's wrong and what you expected to happen
+- **Steps to Reproduce**: List the exact steps to reproduce the issue
+- **Environment Details**:
+  - Windows version
+  - Obsidian Portable version
+  - Location (USB drive, cloud folder, local drive)
+- **Error Messages**: Include any error messages or logs
+- **Screenshots**: If applicable, add screenshots to help explain the problem
+
+### Good Issue Example
+
+```markdown
+**Problem**: Obsidian Portable crashes when opening from network drive
+
+**Steps to Reproduce**:
+1. Copy Obsidian Portable to network drive Z:
+2. Run ObsidianPortable.exe
+3. Application crashes before window appears
+
+**Environment**:
+- Windows 11 Pro
+- Obsidian Portable 1.11.5.0
+- Network drive (SMB share)
+
+**Error**: [Attach error log or screenshot]
+```
+
+## Documentation Contributions
+
+Help improve the documentation by:
+
+- Fixing typos or unclear explanations
+- Adding missing information
+- Creating tutorials or guides
+- Improving help.html content
+- Translating documentation
+
+Documentation pull requests follow the same workflow as code contributions.
+
+## Code Guidelines
+
+When contributing code, please follow these guidelines:
+
+<AccordionGroup>
+  <Accordion title="Code Style">
+    - Follow the existing code style in the project
+    - Use consistent indentation (spaces or tabs as per existing files)
+    - Comment complex logic
+    - Keep functions focused and modular
+  </Accordion>
+
+  <Accordion title="Testing">
+    - Test your changes thoroughly before submitting
+    - Test on different Windows versions if possible
+    - Test from different locations (USB, local, network)
+    - Verify upgrade scenarios work correctly
+  </Accordion>
+
+  <Accordion title="Compatibility">
+    - Ensure changes work with PortableApps.com launcher
+    - Maintain compatibility with existing installations
+    - Don't break existing user data or settings
+    - Consider backward compatibility
+  </Accordion>
+
+  <Accordion title="Documentation">
+    - Update help.html if user-facing features change
+    - Update README.md if necessary
+    - Add comments explaining why code works a certain way
+    - Document any new configuration options
+  </Accordion>
+</AccordionGroup>
+
+## Financial Support
+
+If you'd like to support the project financially:
+
+<CardGroup cols={3}>
+  <Card title="Support Papela" icon="coffee" href="https://ko-fi.com/papela">
+    Support the portable packaging maintainer
+  </Card>
+  
+  <Card title="Support Obsidian" icon="heart" href="https://help.obsidian.md/Contributing+to+Obsidian/Obsidian+Unlimited+(donation)">
+    Support Obsidian development
+  </Card>
+  
+  <Card title="Support PortableApps" icon="server" href="https://portableapps.com/donate">
+    Support PortableApps.com hosting
+  </Card>
+</CardGroup>
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/papela)
+
+## Community Guidelines
+
+When participating in the Obsidian Portable community:
+
+- **Be Respectful**: Treat everyone with respect and professionalism
+- **Be Constructive**: Provide constructive feedback and suggestions
+- **Be Patient**: Maintainers are often volunteers with limited time
+- **Be Helpful**: Help other users when you can
+- **Follow Guidelines**: Follow GitHub's community guidelines and code of conduct
+
+## License
+
+By contributing to Obsidian Portable, you agree that your contributions will be licensed under the [GPL-3.0 License](https://github.com/Papela/Obsidian-Portable/blob/main/LICENSE).
+
+<Note>
+  All contributions are subject to review and may be modified or rejected at the maintainer's discretion.
+</Note>
+
+## Questions?
+
+If you have questions about contributing:
+
+- Check the [FAQ](/support/faq) for common questions
+- Open a [discussion on GitHub](https://github.com/Papela/Obsidian-Portable/discussions)
+- Review existing [pull requests](https://github.com/Papela/Obsidian-Portable/pulls) for examples
+
+Thank you for helping make Obsidian Portable better!

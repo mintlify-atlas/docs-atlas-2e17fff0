@@ -1,80 +1,399 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quick Start Guide
+description: Get up and running with Obsidian Portable in 5 minutes - from launch to your first portable note
 ---
 
-## Get started in three steps
+# Quick Start Guide
 
-Get your documentation site running locally and make your first customization.
-
-### Step 1: Set up your local environment
-
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 2: Deploy your changes
-
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
-
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
-
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 3: Go live
-
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
-
-## Next steps
-
-Now that you have your docs running, explore these key features:
-
-<CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
-</CardGroup>
+This guide will get you from zero to taking notes with Obsidian Portable in just 5 minutes.
 
 <Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
+This assumes you've already [installed Obsidian Portable](/installation). If not, complete the installation first.
 </Note>
+
+## 5-Minute Setup
+
+<Steps>
+  <Step title="Launch the Application">
+    Navigate to your Obsidian Portable installation folder and double-click:
+    
+    ```plaintext
+    ObsidianPortable.exe
+    ```
+    
+    <Info>
+    Always launch via `ObsidianPortable.exe`, not the `Obsidian.exe` in subdirectories. The portable launcher ensures your data stays portable.
+    </Info>
+    
+    Obsidian will open and display the welcome screen.
+  </Step>
+  
+  <Step title="Create Your Portable Vault">
+    On the welcome screen:
+    
+    1. Click **Create new vault**
+    2. Enter a vault name: `My Portable Notes`
+    3. **IMPORTANT:** Click **Browse** next to the location field
+    4. Navigate to your ObsidianPortable installation, then:
+    
+    ```plaintext
+    ObsidianPortable/Data/Vaults/
+    ```
+    
+    5. Click **Select Folder**, then **Create**
+    
+    <Warning>
+    **Critical for Portability:** Always create vaults inside the `Data/Vaults/` directory. Vaults created elsewhere won't move with your portable installation.
+    </Warning>
+    
+    Your vault structure will be:
+    ```plaintext
+    ObsidianPortable/
+    └── Data/
+        └── Vaults/
+            └── My Portable Notes/
+                └── .obsidian/    # Settings for this vault
+    ```
+  </Step>
+  
+  <Step title="Create Your First Note">
+    With your vault open:
+    
+    1. Click the **New note** button (or press `Ctrl+N`)
+    2. Type a note title: `Welcome to Obsidian Portable`
+    3. Start writing in markdown:
+    
+    ```markdown
+    # My First Portable Note
+    
+    This is my first note in Obsidian Portable!
+    
+    ## Why Obsidian Portable?
+    
+    - No installation required
+    - Works from USB drives
+    - Complete privacy
+    - All my data travels with me
+    
+    ## Quick Markdown Tips
+    
+    **Bold text** and *italic text*
+    
+    - Bullet points
+    - Are easy
+    
+    [[Link to other notes]] using double brackets
+    ```
+    
+    Notes auto-save as you type.
+  </Step>
+  
+  <Step title="Configure Essential Settings">
+    Open Settings (`Ctrl+,`) and configure these portable-friendly options:
+    
+    ### Files & Links
+    - **Default location for new notes:** Set to `In the folder specified below`
+    - **Folder to create new notes in:** Leave as root (`/`) or create a `Notes` folder
+    - **Default location for new attachments:** Set to `In subfolder under current folder`
+    - **Subfolder name:** `attachments`
+    
+    This keeps all your attachments portable with your notes.
+    
+    ### Appearance (Optional)
+    - Choose your preferred theme (Light/Dark)
+    - Adjust base font size for readability
+    
+    <Info>
+    All settings are automatically stored in `Data/ObsidianAppData/` and will move with your portable installation.
+    </Info>
+  </Step>
+  
+  <Step title="Test Portability">
+    Verify everything is portable:
+    
+    1. **Close Obsidian** completely (not just minimize)
+    2. If on a USB drive: safely eject and reconnect (it may get a different drive letter)
+    3. Launch `ObsidianPortable.exe` again
+    4. Your vault should open automatically with all your notes intact
+    
+    <Info>
+    The launcher's path replacement feature (configured in `App/AppInfo/Launcher/ObsidianPortable.ini`) automatically updates vault locations when your drive letter changes.
+    </Info>
+  </Step>
+</Steps>
+
+## Understanding the Portable Setup
+
+Here's what the launcher does behind the scenes:
+
+```ini
+# From ObsidianPortable.ini
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData"
+```
+
+This ensures Obsidian stores all application data in:
+```plaintext
+ObsidianPortable/Data/ObsidianAppData/
+```
+
+Instead of the default Windows location:
+```plaintext
+C:\Users\YourName\AppData\Roaming\obsidian\
+```
+
+## Quick Markdown Reference
+
+Get productive immediately with these essential Obsidian markdown shortcuts:
+
+<AccordionGroup>
+  <Accordion title="Text Formatting">
+    ```markdown
+    **bold text**
+    *italic text*
+    ==highlighted text==
+    ~~strikethrough~~
+    `inline code`
+    ```
+  </Accordion>
+  
+  <Accordion title="Headings">
+    ```markdown
+    # Heading 1
+    ## Heading 2
+    ### Heading 3
+    #### Heading 4
+    ```
+  </Accordion>
+  
+  <Accordion title="Links">
+    ```markdown
+    [[Link to another note]]
+    [[Note|Custom link text]]
+    [[Note#Heading|Link to heading]]
+    [External link](https://example.com)
+    ```
+  </Accordion>
+  
+  <Accordion title="Lists">
+    ```markdown
+    - Bullet point
+    - Another point
+      - Nested point
+    
+    1. Numbered list
+    2. Second item
+       1. Nested number
+    
+    - [ ] Unchecked task
+    - [x] Checked task
+    ```
+  </Accordion>
+  
+  <Accordion title="Code Blocks">
+    ````markdown
+    ```javascript
+    function hello() {
+      console.log("Hello from Obsidian!");
+    }
+    ```
+    ````
+  </Accordion>
+  
+  <Accordion title="Tables">
+    ```markdown
+    | Column 1 | Column 2 | Column 3 |
+    |----------|----------|----------|
+    | Data 1   | Data 2   | Data 3   |
+    | Data 4   | Data 5   | Data 6   |
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Essential Keyboard Shortcuts
+
+| Action | Shortcut | Description |
+|--------|----------|-------------|
+| **New note** | `Ctrl+N` | Create a new note in current vault |
+| **Quick switcher** | `Ctrl+O` | Quickly open any note |
+| **Search in vault** | `Ctrl+Shift+F` | Search all notes |
+| **Command palette** | `Ctrl+P` | Access all commands |
+| **Settings** | `Ctrl+,` | Open settings |
+| **Toggle edit/preview** | `Ctrl+E` | Switch between edit and reading mode |
+| **Open graph view** | `Ctrl+G` | Visualize note connections |
+
+## Next Steps: Making It Yours
+
+<CardGroup cols={2}>
+  <Card title="Organize Your Vaults" icon="folders">
+    Learn how to create multiple vaults for different purposes:
+    
+    - Personal notes
+    - Work documentation
+    - Research projects
+    
+    See [Using Obsidian Portable](/guide/using-obsidian-portable) for more on managing vaults
+  </Card>
+  
+  <Card title="Install Community Plugins" icon="puzzle-piece">
+    Extend Obsidian with community plugins:
+    
+    1. Settings → Community plugins
+    2. Turn off Restricted Mode
+    3. Browse and install plugins
+    
+    All plugins install portably in `Data/ObsidianAppData/`
+  </Card>
+  
+  <Card title="Customize Appearance" icon="palette">
+    Make Obsidian beautiful:
+    
+    - Install community themes
+    - Adjust fonts and colors
+    - Configure CSS snippets
+    
+    See [Configuration](/guide/configuration) for more on customization
+  </Card>
+  
+  <Card title="Link Your Notes" icon="link">
+    Build a knowledge network:
+    
+    - Use `[[double brackets]]` to link notes
+    - Create MOCs (Maps of Content)
+    - Explore the Graph View
+    
+    Learn more in the [Obsidian documentation](https://help.obsidian.md/)
+  </Card>
+</CardGroup>
+
+## Common Quick Start Questions
+
+<AccordionGroup>
+  <Accordion title="Can I create multiple vaults?">
+    Yes! Create as many vaults as you want inside `Data/Vaults/`:
+    
+    ```plaintext
+    Data/Vaults/
+    ├── Personal/
+    ├── Work/
+    ├── Research/
+    └── Projects/
+    ```
+    
+    Switch between vaults using the vault switcher (click the vault name in the bottom-left).
+  </Accordion>
+  
+  <Accordion title="Where are my attachments stored?">
+    By default, attachments go in the same folder as your note. To keep them organized:
+    
+    1. Settings → Files & Links
+    2. Set **Default location for new attachments** to "In subfolder under current folder"
+    3. Set **Subfolder name** to `attachments`
+    
+    Now images and files will be stored in:
+    ```plaintext
+    Data/Vaults/My Notes/attachments/
+    ```
+  </Accordion>
+  
+  <Accordion title="Can I use Obsidian Sync with the portable version?">
+    Yes, but it's not necessary for most portable use cases:
+    
+    - **USB/Cloud Storage:** Your files are already portable
+    - **Obsidian Sync:** Useful if you want encrypted cloud sync independent of file location
+    
+    To enable:
+    1. Create an Obsidian account
+    2. Subscribe to Obsidian Sync
+    3. Settings → Core plugins → Enable "Sync"
+    4. Configure sync settings
+    
+    Sync settings are stored portably in `Data/ObsidianAppData/`.
+  </Accordion>
+  
+  <Accordion title="How do I backup my portable vault?">
+    Your entire Obsidian Portable installation is already a backup! To create additional backups:
+    
+    **Simple Backup:**
+    ```plaintext
+    Copy the entire ObsidianPortable folder to another location
+    ```
+    
+    **Vault-Only Backup:**
+    ```plaintext
+    Copy Data/Vaults/My Portable Notes/ to backup location
+    ```
+    
+    **Version Control (Advanced):**
+    Initialize a Git repository in your vault folder for version history.
+  </Accordion>
+  
+  <Accordion title="What if I accidentally launch the wrong Obsidian.exe?">
+    If you launch the `Obsidian.exe` inside the App directory instead of `ObsidianPortable.exe`:
+    
+    - It will use your system's default Obsidian data directory
+    - Your portable vaults won't be visible
+    - No data is lost - just launch the correct `ObsidianPortable.exe`
+    
+    <Warning>
+    Always use `ObsidianPortable.exe` in the root folder, not any other .exe files.
+    </Warning>
+  </Accordion>
+</AccordionGroup>
+
+## Verify Your Portable Setup
+
+Run this quick checklist to ensure everything is properly configured:
+
+- [ ] Launched via `ObsidianPortable.exe` (not `Obsidian.exe`)
+- [ ] Vault created inside `Data/Vaults/` directory
+- [ ] Can create and edit notes
+- [ ] Settings persist after closing and reopening
+- [ ] Attachments save to portable location
+- [ ] (USB users) Vault accessible after reconnecting drive with different letter
+
+## Tips for Portable Success
+
+<Steps>
+  <Step title="Keep Vaults Inside Data/">
+    Always create vaults in `Data/Vaults/` to ensure they move with your installation.
+  </Step>
+  
+  <Step title="Use Relative Paths">
+    When linking files, use relative paths or Obsidian's `[[link]]` syntax instead of absolute paths.
+  </Step>
+  
+  <Step title="Regular Backups">
+    Even though it's portable, maintain backups:
+    - Copy to another USB drive
+    - Upload to personal cloud storage
+    - Commit to a Git repository
+  </Step>
+  
+  <Step title="Safe USB Ejection">
+    Always "Safely Remove Hardware" before unplugging USB drives to prevent data corruption.
+  </Step>
+  
+  <Step title="One Instance at a Time">
+    If using cloud storage, only run one instance of Obsidian Portable at a time to avoid sync conflicts.
+  </Step>
+</Steps>
+
+## Get Help
+
+If you encounter issues:
+
+- Check the [Troubleshooting Guide](/guide/troubleshooting)
+- Review [PortableApps.com Support](https://portableapps.com/support/portable_app)
+- Visit [Obsidian Help Docs](https://help.obsidian.md/)
+- Report issues on [GitHub](https://github.com/Papela/Obsidian-Portable/issues)
+
+## What's Next?
+
+Now that you're up and running:
+
+1. **Explore Features**: Try the Graph View, Canvas, and other core features
+2. **Install Plugins**: Discover community plugins to extend functionality
+3. **Build Your System**: Develop your personal knowledge management workflow
+4. **Learn Advanced Features**: Explore templates, daily notes, and dataview queries
+
+Happy note-taking with Obsidian Portable!

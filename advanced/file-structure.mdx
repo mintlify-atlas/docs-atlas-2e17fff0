@@ -1,0 +1,250 @@
+---
+title: 'File Structure'
+description: 'Complete directory structure of Obsidian Portable installation'
+icon: 'folder-tree'
+---
+
+## Overview
+
+Obsidian Portable follows the PortableApps.com format with a standardized directory structure that separates the application files from user data, enabling true portability.
+
+## Complete Directory Tree
+
+```
+ObsidianPortable/
+├── App/
+│   └── AppInfo/
+│       ├── Launcher/
+│       │   ├── ObsidianPortable.ini
+│       │   └── splash.jpg
+│       ├── EULA.txt
+│       ├── appicon.ico
+│       ├── appicon_16.png
+│       ├── appicon_32.png
+│       ├── appicon_75.png
+│       ├── appicon_128.png
+│       ├── appicon_256.png
+│       └── appinfo.ini
+├── Data/
+│   ├── ObsidianAppData/
+│   │   ├── obsidian.json
+│   │   ├── Cache/
+│   │   ├── Dictionaries/
+│   │   └── [...other Obsidian data...]
+│   └── PortableApps.comInstaller/
+│       └── license.ini
+├── Other/
+│   ├── Help/
+│   └── Source/
+├── ObsidianPortable.exe
+├── help.html
+├── DONATIONS.url
+├── LICENSE
+└── README.md
+```
+
+## Directory Details
+
+### App Directory
+
+Contains all application-related files and metadata. This directory is typically replaced during upgrades.
+
+#### App/AppInfo/
+
+Application metadata and launcher configuration.
+
+**Key Files:**
+
+<CodeGroup>
+```ini appinfo.ini
+[Format]
+Type=PortableApps.comFormat
+Version=3.7
+
+[Details]
+Name=Obsidian Portable
+AppID=ObsidianPortable
+Publisher=Papela & PortableApps.com
+Homepage=https://portableapps.com/apps/office/obsidian-portable
+Donate=https://ko-fi.com/papela
+Category=Office
+Description=Markdown note-taking app
+Language=Multilingual
+
+[License]
+Shareable=true
+OpenSource=false
+Freeware=true
+CommercialUse=true
+
+[Version]
+PackageVersion=1.11.5.0
+DisplayVersion=1.11.5
+
+[Control]
+Icons=1
+Start=ObsidianPortable.exe
+BaseAppID=%BASELAUNCHERPATH%\Obsidian.exe
+BaseAppID64=%BASELAUNCHERPATH%\Obsidian.exe
+BaseAppIDARM64=%BASELAUNCHERPATH%\Obsidian.exe
+```
+</CodeGroup>
+
+**appinfo.ini** - Contains application metadata including:
+- Application name, ID, and publisher information
+- Version numbers (current: 1.11.5)
+- License information
+- Control settings for the launcher
+
+**appicon files** - Application icons in various sizes (16x16, 32x32, 75x75, 128x128, 256x256)
+
+**EULA.txt** - End User License Agreement
+
+#### App/AppInfo/Launcher/
+
+Launcher-specific configuration and assets.
+
+**ObsidianPortable.ini** - Main launcher configuration file (see [Launcher Configuration](/advanced/launcher-configuration))
+
+**splash.jpg** - Splash screen image displayed during launch
+
+#### App/Obsidian/ (when installed)
+
+This directory contains the actual Obsidian application files:
+
+```
+App/Obsidian/
+├── Obsidian.exe
+├── resources/
+├── locales/
+├── chrome_100_percent.pak
+├── chrome_200_percent.pak
+├── icudtl.dat
+├── resources.pak
+└── [...other Electron/Chromium files...]
+```
+
+<Note>
+The `App/Obsidian/` directory is not included in the source repository. It's populated during installation or upgrade when you download the full Obsidian Portable package.
+</Note>
+
+### Data Directory
+
+Contains all user data and settings. **This directory is preserved during upgrades.**
+
+#### Data/ObsidianAppData/
+
+The primary location for Obsidian's user data, specified via the `--user-data-dir` command-line argument.
+
+**Key contents:**
+
+```
+Data/ObsidianAppData/
+├── obsidian.json          # Vault configuration and paths
+├── Cache/                  # Application cache files
+├── Dictionaries/           # Custom dictionaries
+├── GPUCache/              # GPU rendering cache
+├── Local Storage/         # Local storage data
+└── Session Storage/       # Session data
+```
+
+**obsidian.json** - Critical configuration file that stores:
+- Paths to your vaults
+- Recently opened vaults
+- Application preferences
+
+<Warning>
+The `obsidian.json` file contains absolute paths to your vaults. The launcher automatically updates these paths when you move the portable app to maintain portability.
+</Warning>
+
+#### Data/PortableApps.comInstaller/
+
+Contains installer metadata:
+
+**license.ini** - License acceptance information for the PortableApps.com installer
+
+### Vault Storage Locations
+
+Obsidian Portable vaults can be stored in multiple locations:
+
+#### Option 1: Inside Data Directory (Recommended)
+
+```
+ObsidianPortable/
+└── Data/
+    └── Vaults/
+        ├── MyVault/
+        ├── WorkNotes/
+        └── PersonalKnowledge/
+```
+
+Storing vaults in the `Data` directory ensures they're included in the portable package and preserved during upgrades.
+
+#### Option 2: Alongside Portable App
+
+```
+USB Drive/
+├── ObsidianPortable/
+└── ObsidianVaults/
+    ├── MyVault/
+    └── WorkNotes/
+```
+
+#### Option 3: Anywhere on the Same Drive
+
+Vaults can be stored anywhere, but the launcher will update paths automatically only if they're on the same drive as the portable app.
+
+### Other Directory
+
+Contains supporting files:
+
+#### Other/Help/
+
+Help documentation and images for the help system.
+
+#### Other/Source/
+
+Source code and build information for the portable launcher.
+
+### Root Files
+
+**ObsidianPortable.exe** - Main launcher executable. Run this file to start Obsidian Portable.
+
+**help.html** - HTML help file with information about the portable app
+
+**DONATIONS.url** - Link to support the developer
+
+**LICENSE** - GPL-3.0 license text
+
+**README.md** - Repository readme with version information and contribution guidelines
+
+## Important Notes
+
+<Note>
+**Preserve During Upgrades**: The entire `Data` directory is preserved when upgrading to a new version. Your vaults, settings, and cache remain intact.
+</Note>
+
+<Note>
+**Application Files**: Files in the `App` directory may be replaced during upgrades. Never store user data in the `App` directory.
+</Note>
+
+<Warning>
+**Manual File Operations**: If you manually move or copy the portable app, ensure you copy the entire directory structure. Missing files may prevent proper operation.
+</Warning>
+
+## Configuration File Locations
+
+Quick reference for key configuration files:
+
+| File | Path | Purpose |
+|------|------|----------|
+| Launcher Config | `App/AppInfo/Launcher/ObsidianPortable.ini` | Launcher behavior |
+| App Metadata | `App/AppInfo/appinfo.ini` | Version and app information |
+| Vault Paths | `Data/ObsidianAppData/obsidian.json` | Vault locations and settings |
+| License Info | `Data/PortableApps.comInstaller/license.ini` | Installation metadata |
+
+## Related Topics
+
+- [Launcher Configuration](/advanced/launcher-configuration) - Detailed launcher configuration reference
+- [Upgrading](/advanced/upgrading) - How to upgrade while preserving your data
+- [Installation Guide](/installation) - Initial setup and installation

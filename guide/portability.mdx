@@ -1,0 +1,470 @@
+---
+title: Portability
+description: Understand how Obsidian Portable achieves portability and manages paths across different computers and drives
+---
+
+Obsidian Portable uses the PortableApps.com Launcher framework to ensure complete portability, allowing you to run Obsidian from any location without installation.
+
+## How Portability Works
+
+Obsidian Portable achieves portability through several key mechanisms:
+
+### User Data Directory Isolation
+
+When launching, Obsidian Portable passes a specific command-line argument:
+
+```bash
+Obsidian.exe --user-data-dir="Data/ObsidianAppData"
+```
+
+This directs Obsidian to store all application data within the portable directory instead of the system's default location (e.g., `%APPDATA%`).
+
+<Info>
+All application data, settings, and configurations are contained within the portable folder, making the installation fully self-contained.
+</Info>
+
+### Dynamic Path Management
+
+The launcher automatically updates paths when:
+- The drive letter changes (e.g., from `E:` to `F:`)
+- The installation is moved to a different folder
+- The portable directory is renamed
+
+## Directory Structure
+
+Obsidian Portable uses a standardized PortableApps.com directory structure:
+
+```
+ObsidianPortable/
+├── App/
+│   ├── AppInfo/
+│   │   ├── Launcher/
+│   │   │   └── ObsidianPortable.ini      # Launcher configuration
+│   │   ├── appinfo.ini                    # App metadata
+│   │   └── appicon_*.png                  # Application icons
+│   └── Obsidian/
+│       └── Obsidian.exe                   # Main executable
+├── Data/
+│   └── ObsidianAppData/                   # Application data
+│       └── obsidian.json                  # Vault list and settings
+├── Other/
+│   └── Source/
+│       └── Readme.txt                     # Launcher documentation
+├── ObsidianPortable.exe                   # Portable launcher
+└── help.html                              # Help documentation
+```
+
+### App Directory
+
+Contains the Obsidian application files and launcher configuration:
+
+- **AppInfo/**: Metadata and launcher configuration
+- **Obsidian/**: The actual Obsidian application
+
+<Note>
+The `App` directory contains the core application. Do not modify these files unless updating the portable package.
+</Note>
+
+### Data Directory
+
+Stores all portable data:
+
+- **ObsidianAppData/**: Application settings and vault references
+- **Your vaults**: (Optional) Store vaults here for complete portability
+
+<Info>
+Everything in the `Data` directory persists across moves and is specific to your portable installation.
+</Info>
+
+### Other Directory
+
+Contains additional resources:
+
+- **Source/**: Launcher source and documentation
+- **Help/**: Help file images and resources
+
+## Path Management System
+
+The launcher uses a sophisticated path replacement system defined in `ObsidianPortable.ini`:
+
+### FileWrite Operations
+
+The launcher performs four types of path replacements in `obsidian.json`:
+
+#### 1. Initial Data Directory Setup
+
+```ini
+[FileWrite1]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=INITIALDATADIR
+Replace=%PAL:Drive%%PAL:PackagePartialDir:DoubleBackslash%\\Data
+```
+
+**Purpose**: Replaces the placeholder `INITIALDATADIR` with the actual data directory path on first run.
+
+**Example**: `INITIALDATADIR` → `E:\PortableApps\ObsidianPortable\Data`
+
+#### 2. Package Location Updates
+
+```ini
+[FileWrite2]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=%PAL:LastDrive%%PAL:LastPackagePartialDir:DoubleBackslash%\\
+Replace=%PAL:Drive%%PAL:PackagePartialDir:DoubleBackslash%\\
+```
+
+**Purpose**: Updates paths when the portable folder is moved within the same drive or to a different location.
+
+**Example**: `E:\OldFolder\ObsidianPortable\` → `E:\NewFolder\ObsidianPortable\`
+
+#### 3. PortableApps Base Directory Updates
+
+```ini
+[FileWrite3]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=%PAL:LastDrive%%PAL:LastPortableAppsBaseDir:DoubleBackslash%\\
+Replace=%PAL:Drive%%PAL:PortableAppsBaseDir:DoubleBackslash%\\
+```
+
+**Purpose**: Updates paths when the entire PortableApps directory is moved.
+
+**Example**: `E:\PortableApps\` → `F:\PortableApps\`
+
+#### 4. Drive Letter Changes
+
+```ini
+[FileWrite4]
+Type=Replace
+File=%PAL:DataDir%\ObsidianAppData\obsidian.json
+Find=%PAL:LastDrive%\\
+Replace=%PAL:Drive%\\
+```
+
+**Purpose**: Updates any remaining drive letter references.
+
+**Example**: `E:\` → `F:\`
+
+<Note>
+These replacements happen automatically before Obsidian launches, ensuring all paths remain valid.
+</Note>
+
+## Moving Between Drives
+
+Obsidian Portable seamlessly handles drive letter changes:
+
+### Automatic Path Updates
+
+<Steps>
+  <Step title="Close Obsidian">
+    Ensure Obsidian is not running
+  </Step>
+  
+  <Step title="Move or eject drive">
+    Safely eject the drive or move the portable folder
+  </Step>
+  
+  <Step title="Connect to new system">
+    Plug the drive into a different computer or location
+  </Step>
+  
+  <Step title="Launch normally">
+    Run `ObsidianPortable.exe` - paths update automatically
+  </Step>
+</Steps>
+
+### What Gets Updated
+
+When you move drives, the launcher updates:
+
+1. **Vault paths**: References to vaults within the portable directory
+2. **Application data paths**: Internal configuration paths
+3. **Recent vaults**: The list of recently opened vaults
+
+### What Doesn't Get Updated
+
+Paths to resources outside the portable directory:
+
+- Vaults stored on `C:\` drive
+- Network paths (`\\server\share`)
+- Vaults in user's Documents folder
+
+<Warning>
+If you reference vaults outside the portable directory, you'll need to reopen them manually after moving to a different computer.
+</Warning>
+
+## Cloud Folder Synchronization
+
+You can place Obsidian Portable in cloud storage folders for automatic synchronization:
+
+### Supported Cloud Services
+
+<CardGroup cols={2}>
+  <Card title="Dropbox" icon="dropbox">
+    Place in Dropbox folder for automatic sync across devices
+  </Card>
+  
+  <Card title="OneDrive" icon="microsoft">
+    Use OneDrive for Windows integration and version history
+  </Card>
+  
+  <Card title="Google Drive" icon="google">
+    Store in Google Drive for cross-platform access
+  </Card>
+  
+  <Card title="Other Services" icon="cloud">
+    Any sync service that provides a local folder works
+  </Card>
+</CardGroup>
+
+### Best Practices for Cloud Sync
+
+<Steps>
+  <Step title="Wait for sync completion">
+    Ensure cloud sync finishes before launching Obsidian
+  </Step>
+  
+  <Step title="Close before syncing">
+    Always exit Obsidian before allowing sync to occur
+  </Step>
+  
+  <Step title="Avoid simultaneous use">
+    Don't open the same vault on multiple computers at once
+  </Step>
+  
+  <Step title="Monitor conflicts">
+    Check for sync conflicts and resolve them promptly
+  </Step>
+</Steps>
+
+### Handling Sync Conflicts
+
+If sync conflicts occur:
+
+1. **Close Obsidian** on all computers
+2. **Resolve conflicts** using your cloud service's conflict resolution
+3. **Verify data integrity** by checking vault contents
+4. **Reopen safely** on one computer first
+
+<Warning>
+Opening the same vault simultaneously on multiple computers can cause data loss or corruption. Always ensure Obsidian is closed on other devices.
+</Warning>
+
+### Cloud Sync vs. Obsidian Sync
+
+Obsidian Portable works with both:
+
+- **Cloud folder sync**: Syncs the entire portable installation
+- **Obsidian Sync**: Official service that syncs vault contents only
+
+You can use both together:
+- Obsidian Sync for vault content across devices
+- Cloud folder sync for the portable installation and settings
+
+<Info>
+Obsidian Sync is a paid service that offers end-to-end encryption and doesn't require the portable folder to be in cloud storage.
+</Info>
+
+## Directory Move Support
+
+Obsidian Portable explicitly supports directory moves:
+
+```ini
+DirectoryMoveOK=yes
+```
+
+This means you can:
+
+### Rename Parent Folder
+
+```
+E:\Apps\ObsidianPortable → E:\Programs\ObsidianPortable
+```
+
+Paths are updated automatically on next launch.
+
+### Move to Different Drive
+
+```
+E:\ObsidianPortable → F:\ObsidianPortable
+```
+
+Drive letter changes are handled by FileWrite operations.
+
+### Move Within PortableApps Structure
+
+```
+E:\PortableApps\ObsidianPortable → F:\PortableApps\ObsidianPortable
+```
+
+Both drive and base directory changes are updated.
+
+## UNC Path Support
+
+Obsidian Portable supports network paths:
+
+```ini
+SupportsUNC=yes
+```
+
+### Running from Network Shares
+
+You can run Obsidian Portable from:
+
+```
+\\server\share\ObsidianPortable\ObsidianPortable.exe
+```
+
+### Network Vault Access
+
+Open vaults located on network drives:
+
+```
+\\server\documents\MyVault
+```
+
+<Note>
+Network performance affects Obsidian's responsiveness. For best results, use fast, reliable network connections.
+</Note>
+
+### Network Considerations
+
+1. **Latency**: Network delays can slow down file operations
+2. **Reliability**: Network interruptions may cause issues
+3. **Permissions**: Ensure proper read/write access
+4. **Caching**: Some network configurations may cache files unexpectedly
+
+## Portability Best Practices
+
+### Maximum Portability
+
+For the most portable setup:
+
+1. **Store vaults in Data folder**: Keep everything within the portable directory
+2. **Use relative references**: Avoid absolute paths to external resources
+3. **Embed files**: Store images and attachments within vaults
+4. **Avoid system dependencies**: Don't rely on system-installed fonts or resources
+
+### Partial Portability
+
+You can also use a hybrid approach:
+
+- **Portable application**: Settings and configuration move with the drive
+- **Fixed vaults**: Vaults stored on local `C:\` drive or network locations
+- **Manual reopening**: Reopen external vaults on each computer
+
+<Info>
+This approach works well if you have the same vaults stored in consistent locations across computers (e.g., `C:\Users\YourName\Documents\Vaults`).
+</Info>
+
+### Multi-Computer Workflow
+
+<Steps>
+  <Step title="Setup">
+    Create vaults within `Data/` folder on the portable drive
+  </Step>
+  
+  <Step title="Work on Computer A">
+    Use Obsidian normally, creating and editing notes
+  </Step>
+  
+  <Step title="Close and eject">
+    Exit Obsidian, safely eject the drive
+  </Step>
+  
+  <Step title="Work on Computer B">
+    Plug in drive, launch Obsidian - everything just works
+  </Step>
+</Steps>
+
+## Technical Details
+
+### Launcher Configuration
+
+Key settings in `App/AppInfo/Launcher/ObsidianPortable.ini`:
+
+```ini
+[Launch]
+ProgramExecutable=Obsidian.exe
+CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData"
+DirectoryMoveOK=yes
+SupportsUNC=yes
+```
+
+**Variables**:
+- `%PAL:DataDir%`: Resolves to the Data directory path
+- `%PAL:Drive%`: Current drive letter
+- `%PAL:PackagePartialDir%`: Portable folder path without drive
+- `%PAL:LastDrive%`: Previous drive letter
+
+### Platform Support
+
+Obsidian Portable supports:
+
+```ini
+ProgramExecutable=Obsidian.exe
+ProgramExecutable64=Obsidian.exe
+ProgramExecutableARM64=Obsidian.exe
+```
+
+The same executable works across:
+- 32-bit Windows (legacy)
+- 64-bit Windows
+- ARM64 Windows
+
+<Note>
+Obsidian uses Electron framework, which bundles architecture-specific components automatically.
+</Note>
+
+## Troubleshooting Portability
+
+If portability features aren't working:
+
+### Vaults Not Appearing
+
+1. Check if `Data/ObsidianAppData/obsidian.json` exists
+2. Verify the file contains vault paths
+3. Ensure paths have been updated for current drive letter
+
+### Settings Not Persisting
+
+1. Confirm `Data/ObsidianAppData/` directory exists
+2. Check file permissions (read/write access)
+3. Verify you're launching via `ObsidianPortable.exe`, not `Obsidian.exe` directly
+
+### Path Update Failures
+
+1. Ensure Obsidian is fully closed before moving
+2. Check that `ObsidianPortable.ini` is intact
+3. Verify `obsidian.json` isn't read-only
+
+For more troubleshooting help, see the [Troubleshooting](/guide/troubleshooting) guide.
+
+## Advanced Portability Scenarios
+
+### Multiple Portable Installations
+
+You can maintain separate portable installations:
+
+- Different drives for work and personal
+- Backup installations
+- Different Obsidian versions for testing
+
+Each maintains independent:
+- Application settings
+- Vault lists
+- Plugin configurations
+
+### Portable + Local Hybrid
+
+Combine portable and installed versions:
+
+- **Installed Obsidian**: For daily use on primary computer
+- **Portable Obsidian**: For travel and backup access
+- **Shared vaults**: Both can access the same vault folders
+
+<Warning>
+Don't run both versions simultaneously with the same vault open to avoid conflicts.
+</Warning>

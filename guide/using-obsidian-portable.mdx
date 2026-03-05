@@ -1,0 +1,229 @@
+---
+title: Using Obsidian Portable
+description: Learn how to use Obsidian Portable in your daily workflow for note-taking and knowledge management
+---
+
+Obsidian Portable allows you to run the Obsidian markdown note-taking app from a portable drive, cloud folder, or any location without installation.
+
+## Launching Obsidian Portable
+
+<Steps>
+  <Step title="Launch the application">
+    Double-click `ObsidianPortable.exe` from your portable installation directory.
+  </Step>
+  
+  <Step title="Select or create a vault">
+    On first launch, Obsidian will prompt you to either:
+    - Create a new vault
+    - Open an existing vault
+    - Open a folder as a vault
+  </Step>
+  
+  <Step title="Start taking notes">
+    Begin creating and organizing your markdown notes.
+  </Step>
+</Steps>
+
+<Note>
+Obsidian Portable launches with the `--user-data-dir` flag pointing to `Data/ObsidianAppData`, ensuring all application data stays within the portable directory.
+</Note>
+
+## Working with Vaults
+
+### Creating a Vault in the Portable Directory
+
+For maximum portability, create your vault inside the Obsidian Portable directory:
+
+<Steps>
+  <Step title="Choose location">
+    When creating a new vault, navigate to your `ObsidianPortable/Data/` folder.
+  </Step>
+  
+  <Step title="Create vault folder">
+    Create a new folder for your vault (e.g., `MyVault`).
+  </Step>
+  
+  <Step title="Select the folder">
+    Select this folder as your vault location.
+  </Step>
+</Steps>
+
+<Info>
+Storing vaults in the `Data/` directory ensures they move with your portable installation when you switch drives or computers.
+</Info>
+
+### Opening Existing Vaults
+
+You can open vaults from any location:
+
+- **Inside portable directory**: Vaults in `Data/` folder
+- **External locations**: Any folder on your system or network drives (UNC paths supported)
+- **Cloud folders**: Dropbox, OneDrive, Google Drive, etc.
+
+<Warning>
+If you store vaults outside the portable directory, you'll need to reopen them when moving to a different computer.
+</Warning>
+
+## Working Across Multiple Computers
+
+Obsidian Portable is designed for seamless use across different machines:
+
+### Same Drive Letter
+
+If your portable drive has the same letter on different computers:
+
+1. All vault paths remain valid
+2. Recent vaults list works automatically
+3. No reconfiguration needed
+
+### Different Drive Letters
+
+When drive letters change, Obsidian Portable automatically updates paths:
+
+- Application data paths are adjusted on launch
+- Vault paths in `obsidian.json` are updated
+- Relative paths within the portable directory are preserved
+
+<Note>
+The launcher uses FileWrite operations to replace old drive letters with new ones in the configuration file.
+</Note>
+
+## Daily Usage Best Practices
+
+### Organizing Your Notes
+
+- **Use folders**: Organize notes into logical folders within your vault
+- **Create links**: Leverage Obsidian's internal linking `[[Note Title]]`
+- **Add tags**: Use tags for cross-cutting organization `#tag`
+- **Daily notes**: Consider using the daily notes feature for journaling
+
+### Backup Strategy
+
+<CardGroup cols={2}>
+  <Card title="Regular Backups" icon="copy">
+    Copy your entire `Data/` folder periodically to preserve vaults and settings
+  </Card>
+  
+  <Card title="Cloud Sync" icon="cloud">
+    Place your portable installation in a cloud folder for automatic backup and sync
+  </Card>
+  
+  <Card title="Git Version Control" icon="code-branch">
+    Use Git to version control your vault contents for advanced tracking
+  </Card>
+  
+  <Card title="Export Important Notes" icon="file-export">
+    Regularly export critical notes to PDF or other formats
+  </Card>
+</CardGroup>
+
+### Performance Optimization
+
+<Steps>
+  <Step title="Vault size">
+    Keep vaults focused and avoid storing thousands of files in a single vault.
+  </Step>
+  
+  <Step title="Plugin management">
+    Only enable plugins you actively use to maintain performance.
+  </Step>
+  
+  <Step title="Storage location">
+    For best performance, run from fast storage (USB 3.0+, SSD, or local drive).
+  </Step>
+</Steps>
+
+## Tips and Tricks
+
+### Quick Switching Between Computers
+
+1. **Always eject safely**: Use "Safely Remove Hardware" before unplugging
+2. **Close Obsidian first**: Exit the application before moving the drive
+3. **Same folder structure**: Maintain consistent folder organization across machines
+
+### Using with Cloud Storage
+
+<Info>
+You can place the entire Obsidian Portable folder in Dropbox, OneDrive, or Google Drive for automatic synchronization.
+</Info>
+
+Benefits:
+- Automatic backup
+- Access from multiple computers without a physical drive
+- Version history through cloud provider
+
+Considerations:
+- Ensure Obsidian is closed before syncing
+- Avoid opening the same vault simultaneously on multiple computers
+- Monitor sync status before making changes
+
+### Keyboard Shortcuts
+
+Learn Obsidian's keyboard shortcuts for efficient note-taking:
+
+- `Ctrl + N`: Create new note
+- `Ctrl + O`: Quick switcher (open notes)
+- `Ctrl + P`: Command palette
+- `Ctrl + E`: Toggle edit/preview mode
+- `Ctrl + ,`: Open settings
+
+### Workspace Management
+
+Obsidian allows you to save different workspace layouts:
+
+1. Arrange panes and sidebars as desired
+2. Open Command Palette (`Ctrl + P`)
+3. Search for "Manage workspace layouts"
+4. Save your current layout
+
+<Note>
+Workspace layouts are saved in your application data and will persist across computers when using Obsidian Portable.
+</Note>
+
+## Advanced Usage
+
+### Command Line Usage
+
+While you typically launch via `ObsidianPortable.exe`, the launcher automatically passes the user data directory parameter:
+
+```bash
+Obsidian.exe --user-data-dir="Data/ObsidianAppData"
+```
+
+### Multiple Portable Installations
+
+You can maintain multiple portable installations:
+
+- Different versions for testing
+- Separate work and personal setups
+- Backup installations on different drives
+
+Each installation maintains its own:
+- Application settings
+- Plugin configurations
+- Theme preferences
+- Recently opened vaults list
+
+### Network and UNC Path Support
+
+<Info>
+Obsidian Portable supports UNC paths (`SupportsUNC=yes`), allowing you to run from network locations.
+</Info>
+
+Example UNC path:
+```
+\\server\share\ObsidianPortable\ObsidianPortable.exe
+```
+
+## Getting Help
+
+If you encounter issues:
+
+1. Check the [Troubleshooting](/guide/troubleshooting) guide
+2. Review [Obsidian's official documentation](https://help.obsidian.md/)
+3. Visit the [PortableApps.com forums](https://portableapps.com/forums)
+4. Report issues on [GitHub](https://github.com/Papela/Obsidian-Portable)
+
+<Card title="Support Obsidian Development" icon="heart" href="https://obsidian.md/pricing">
+  Consider purchasing Obsidian Catalyst or Commercial licenses to support ongoing development
+</Card>

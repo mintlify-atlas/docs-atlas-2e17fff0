@@ -1,97 +1,177 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Obsidian Portable"
+description: "Take your notes anywhere with the portable version of Obsidian for Windows"
 ---
 
-## Setting up
+<div style={{
+  background: 'linear-gradient(135deg, #f3e9dd 0%, #f6f0e9 100%)',
+  borderRadius: '16px',
+  padding: '48px 32px',
+  marginBottom: '32px',
+  border: '1px solid #c4bfb7'
+}}>
+  <h1 style={{
+    fontFamily: 'Georgia, serif',
+    fontSize: '40px',
+    fontWeight: '700',
+    color: '#1a1a1a',
+    marginBottom: '16px'
+  }}>
+    Obsidian Portable
+  </h1>
+  <p style={{
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '18px',
+    color: '#1a1a1a',
+    marginBottom: '24px',
+    lineHeight: '1.6'
+  }}>
+    Take your notes anywhere with the portable version of Obsidian for Windows. Run from USB drives, cloud folders, or any location without installation.
+  </p>
+  <div style={{display: 'flex', gap: '12px', flexWrap: 'wrap'}}>
+    <a href="/installation" style={{
+      background: '#1a1a1a',
+      color: '#ffffff',
+      padding: '12px 24px',
+      borderRadius: '20px',
+      textDecoration: 'none',
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '14px',
+      fontWeight: '600',
+      display: 'inline-block'
+    }}>
+      Get Started
+    </a>
+    <a href="https://github.com/Papela/Obsidian-Portable" style={{
+      background: '#e0e4ea',
+      color: '#1a1a1a',
+      padding: '12px 24px',
+      borderRadius: '16px',
+      textDecoration: 'none',
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '14px',
+      fontWeight: '600',
+      display: 'inline-block'
+    }}>
+      View on GitHub
+    </a>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+## Why Obsidian Portable?
 
-<Card
-  title="Start here"
-  icon="rocket"
+Obsidian Portable brings the powerful markdown note-taking capabilities of Obsidian to a truly portable format. Built with the PortableApps.com launcher, it allows you to carry your entire knowledge base with you.
+
+<CardGroup cols={2}>
+  <Card title="True Portability" icon="usb-drive">
+    Run from USB drives, cloud folders, or any removable media without installing on the host PC
+  </Card>
+  <Card title="Automatic Path Management" icon="route">
+    Seamlessly handles vault locations as you move between different drives and computers
+  </Card>
+  <Card title="Zero Installation" icon="circle-xmark">
+    No local installation required — just plug in and run from any Windows PC
+  </Card>
+  <Card title="Preserves Settings" icon="floppy-disk">
+    All your settings, plugins, and data travel with you between computers
+  </Card>
+</CardGroup>
+
+## Key Features
+
+<AccordionGroup>
+  <Accordion title="PortableApps.com Integration" icon="puzzle-piece">
+    Built using the PortableApps.com launcher framework for seamless portability and integration with the PortableApps.com Platform.
+  </Accordion>
+  
+  <Accordion title="Smart Data Directory Management" icon="folder-tree">
+    Uses `--user-data-dir` command-line argument to keep all Obsidian data in the portable directory structure.
+  </Accordion>
+  
+  <Accordion title="Drive Letter Independence" icon="arrows-rotate">
+    Automatically updates vault paths when your portable drive changes letter, ensuring vaults remain accessible.
+  </Accordion>
+  
+  <Accordion title="Multi-Version Support" icon="code-branch">
+    Supports the latest Obsidian versions with easy upgrade path for new releases.
+  </Accordion>
+</AccordionGroup>
+
+## Get Started
+
+<Steps>
+  <Step title="Download">
+    Download the latest version from the [GitHub Releases](https://github.com/Papela/Obsidian-Portable) page
+  </Step>
+  
+  <Step title="Extract">
+    Extract the portable package to your USB drive, cloud folder, or portable location
+  </Step>
+  
+  <Step title="Launch">
+    Run `ObsidianPortable.exe` to start using Obsidian with full portability
+  </Step>
+</Steps>
+
+<Card 
+  title="Quick Start Guide" 
+  icon="rocket" 
   href="/quickstart"
-  horizontal
 >
-  Follow our three step quickstart guide.
+  Follow our complete quick start guide to set up Obsidian Portable in minutes
 </Card>
 
-## Make it yours
+## Documentation
 
-Design a docs site that looks great and empowers your users.
+<CardGroup cols={2}>
+  <Card title="Installation Guide" icon="download" href="/installation">
+    Step-by-step installation instructions
+  </Card>
+  <Card title="Using Obsidian Portable" icon="book-open" href="/guide/using-obsidian-portable">
+    Learn how to use all the portable features
+  </Card>
+  <Card title="Configuration" icon="sliders" href="/guide/configuration">
+    Configure launcher and application settings
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/guide/troubleshooting">
+    Solutions to common issues
+  </Card>
+</CardGroup>
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+## Advanced Topics
 
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
+<CardGroup cols={2}>
+  <Card title="Launcher Configuration" icon="gears" href="/advanced/launcher-configuration">
+    Customize the PortableApps.com launcher settings
   </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
+  <Card title="File Structure" icon="folder-tree" href="/advanced/file-structure">
+    Understand the portable directory layout
   </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
+  <Card title="Upgrading" icon="arrow-up" href="/advanced/upgrading">
+    Keep your portable installation up to date
   </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
+  <Card title="Command-Line Arguments" icon="terminal" href="/advanced/command-line-arguments">
+    Advanced launcher options and arguments
   </Card>
-</Columns>
+</CardGroup>
 
-## Need inspiration?
+## Support & Community
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<CardGroup cols={2}>
+  <Card title="FAQ" icon="circle-question" href="/support/faq">
+    Frequently asked questions and answers
+  </Card>
+  <Card title="Contributing" icon="code-pull-request" href="/support/contributing">
+    Contribute to the project
+  </Card>
+  <Card title="Changelog" icon="list" href="/support/changelog">
+    Version history and updates
+  </Card>
+  <Card title="Support Development" icon="heart" href="https://ko-fi.com/papela">
+    Support the project on Ko-fi
+  </Card>
+</CardGroup>
+
+<Note>
+Obsidian Portable is a community-maintained project by [@Papela](https://github.com/Papela), packaged with the PortableApps.com launcher. It is not officially affiliated with Obsidian.md.
+</Note>

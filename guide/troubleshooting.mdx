@@ -1,0 +1,637 @@
+---
+title: Troubleshooting
+description: Common issues and solutions for Obsidian Portable
+---
+
+This guide covers common issues you may encounter when using Obsidian Portable and their solutions.
+
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="Obsidian Portable won't launch">
+    ### Symptoms
+    - Double-clicking `ObsidianPortable.exe` does nothing
+    - Application starts then immediately closes
+    - Error message appears on launch
+
+    ### Solutions
+
+    <Steps>
+      <Step title="Check file integrity">
+        Verify that `ObsidianPortable.exe` and `App/Obsidian/Obsidian.exe` both exist
+      </Step>
+      
+      <Step title="Verify permissions">
+        Ensure you have read/write permissions on the portable directory
+      </Step>
+      
+      <Step title="Check antivirus">
+        Some antivirus software blocks portable executables. Add an exception for the folder.
+      </Step>
+      
+      <Step title="Run as administrator">
+        Try right-clicking and selecting "Run as administrator" (usually not needed)
+      </Step>
+    </Steps>
+
+    <Info>
+    If the issue persists, try downloading a fresh copy of Obsidian Portable and copying your `Data/` folder to the new installation.
+    </Info>
+  </Accordion>
+
+  <Accordion title="Vault not opening or appearing in recent vaults">
+    ### Symptoms
+    - Previously opened vault doesn't appear in the vault list
+    - "Open folder as vault" doesn't work
+    - Vault path shows error
+
+    ### Solutions
+
+    **Check vault path**
+
+    After moving drives, vaults outside the portable directory may have invalid paths:
+    
+    1. Open `Data/ObsidianAppData/obsidian.json` in a text editor
+    2. Look for vault entries with old drive letters
+    3. Either:
+       - Manually update paths to current drive letter
+       - Re-open the vault using "Open folder as vault"
+
+    **Verify vault structure**
+
+    Ensure the vault folder contains:
+    - `.obsidian/` directory (may be hidden)
+    - Markdown files (`.md`)
+
+    **Create new vault reference**
+
+    1. In Obsidian, choose "Open folder as vault"
+    2. Navigate to the vault folder
+    3. Select the folder to re-add it to the vault list
+
+    <Note>
+    Vaults stored within the portable `Data/` directory automatically update their paths. External vaults require manual path correction.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Settings not persisting between sessions">
+    ### Symptoms
+    - Theme changes don't save
+    - Plugin configurations reset
+    - Custom hotkeys disappear
+
+    ### Solutions
+
+    **Verify data directory**
+
+    Check that `Data/ObsidianAppData/` exists and is writable:
+
+    ```bash
+    ObsidianPortable/
+    └── Data/
+        └── ObsidianAppData/
+            └── obsidian.json
+    ```
+
+    **Check file permissions**
+
+    1. Right-click the `Data/` folder
+    2. Select Properties → Security
+    3. Ensure your user has "Modify" permission
+
+    **Ensure proper launch method**
+
+    Always launch via `ObsidianPortable.exe`, not `App/Obsidian/Obsidian.exe` directly.
+
+    The launcher passes the critical parameter:
+    ```bash
+    --user-data-dir="Data/ObsidianAppData"
+    ```
+
+    <Warning>
+    If you launch `Obsidian.exe` directly, settings save to the system default location and won't be portable.
+    </Warning>
+
+    **Verify not read-only**
+
+    Check if your drive or folder is mounted as read-only:
+    
+    1. Right-click `ObsidianPortable` folder
+    2. Properties → ensure "Read-only" is not checked
+    3. If on USB drive, check drive properties
+  </Accordion>
+
+  <Accordion title="Vault paths broken after moving drives">
+    ### Symptoms
+    - Vaults show "path not found" error
+    - Recently opened vaults have wrong drive letters
+    - Can't access vaults that worked before
+
+    ### Solutions
+
+    **Automatic path update (for vaults in portable directory)**
+
+    If your vault is in the `Data/` folder, paths should update automatically. If not:
+
+    1. Close Obsidian completely
+    2. Delete `Data/ObsidianAppData/obsidian.json`
+    3. Relaunch Obsidian Portable
+    4. Re-open your vault using "Open folder as vault"
+
+    **Manual path update (for external vaults)**
+
+    Edit `Data/ObsidianAppData/obsidian.json`:
+
+    ```json
+    {
+      "vaults": {
+        "vault-id": {
+          "path": "E:\\MyVault",
+          "ts": 1234567890
+        }
+      }
+    }
+    ```
+
+    Change `E:\\` to the correct current drive letter.
+
+    <Info>
+    Use double backslashes (`\\`) in JSON file paths. For example: `"F:\\\\Data\\\\MyVault"`
+    </Info>
+
+    **Understanding path updates**
+
+    The launcher updates four types of paths:
+
+    1. Initial data directory placeholder
+    2. Package location changes (folder renamed/moved)
+    3. PortableApps base directory changes
+    4. Drive letter changes
+
+    See [Portability - Path Management](/guide/portability#path-management-system) for details.
+  </Accordion>
+
+  <Accordion title="Performance issues and slow loading">
+    ### Symptoms
+    - Obsidian takes long to launch
+    - Slow typing or editing
+    - Delayed file opening
+    - High CPU or memory usage
+
+    ### Solutions
+
+    **Check storage speed**
+
+    Slow storage significantly affects performance:
+
+    - **USB 2.0**: Very slow - upgrade to USB 3.0+
+    - **USB 3.0**: Acceptable for basic use
+    - **SSD/NVMe**: Best performance
+    - **Network drives**: Speed varies; test with local drive first
+
+    **Reduce vault size**
+
+    Large vaults with thousands of files slow down operations:
+
+    1. Split large vaults into smaller, focused vaults
+    2. Archive old notes to separate vaults
+    3. Remove unused attachments and files
+
+    **Disable unnecessary plugins**
+
+    Some plugins impact performance:
+
+    1. Open Settings → Community plugins
+    2. Disable plugins you don't actively use
+    3. Test performance after each change to identify culprits
+
+    **Check for large files**
+
+    Large files (videos, PDFs, images) in vaults slow down indexing:
+
+    1. Move large attachments outside the vault
+    2. Link to files rather than embedding them
+    3. Use external folders for media storage
+
+    **Optimize cache**
+
+    Clear Obsidian's cache:
+
+    1. Close Obsidian
+    2. Navigate to `Data/ObsidianAppData/Cache/`
+    3. Delete cache files
+    4. Restart Obsidian
+
+    <Note>
+    Performance on portable drives varies significantly by drive quality and USB version. For best results, use USB 3.0 or higher.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Plugins not working or failing to install">
+    ### Symptoms
+    - Community plugins won't install
+    - Installed plugins don't appear
+    - Plugin errors in console
+    - Plugins disabled on restart
+
+    ### Solutions
+
+    **Enable community plugins**
+
+    <Steps>
+      <Step title="Turn off safe mode">
+        Settings → Community plugins → Turn off Safe mode
+      </Step>
+      
+      <Step title="Confirm the warning">
+        Accept the security warning about third-party plugins
+      </Step>
+      
+      <Step title="Browse plugins">
+        Click "Browse" to access the community plugin directory
+      </Step>
+    </Steps>
+
+    **Check internet connectivity**
+
+    Plugin installation requires internet access to download from the plugin repository.
+
+    **Verify write permissions**
+
+    Ensure Obsidian can write to:
+    ```
+    YourVault/.obsidian/plugins/
+    ```
+
+    **Manual plugin installation**
+
+    If automatic installation fails:
+
+    1. Download plugin from GitHub releases
+    2. Extract to `YourVault/.obsidian/plugins/plugin-name/`
+    3. Ensure the folder contains:
+       - `manifest.json`
+       - `main.js`
+       - `styles.css` (if applicable)
+    4. Restart Obsidian
+    5. Enable plugin in Settings → Community plugins
+
+    **Check plugin compatibility**
+
+    Some plugins may not work with your Obsidian version:
+
+    1. Check plugin documentation for version requirements
+    2. Update Obsidian Portable to the latest version
+    3. Report compatibility issues to plugin developers
+
+    <Warning>
+    Only install plugins from trusted sources. Malicious plugins can access your vault data.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Themes not applying or missing">
+    ### Symptoms
+    - Installed theme doesn't appear
+    - Theme changes don't take effect
+    - Theme looks broken or incomplete
+
+    ### Solutions
+
+    **Verify theme installation**
+
+    Check that theme files exist:
+    ```
+    YourVault/.obsidian/themes/theme-name/
+    ├── manifest.json
+    └── theme.css
+    ```
+
+    **Activate the theme**
+
+    1. Settings → Appearance
+    2. Under "Themes", select your installed theme from the dropdown
+    3. Reload Obsidian if needed
+
+    **Clear appearance cache**
+
+    1. Close Obsidian
+    2. Delete `YourVault/.obsidian/appearance.json`
+    3. Restart Obsidian and reselect theme
+
+    **Check CSS snippets conflicts**
+
+    Custom CSS snippets may conflict with themes:
+
+    1. Settings → Appearance → CSS snippets
+    2. Disable all snippets
+    3. Test if theme works
+    4. Re-enable snippets one by one to identify conflicts
+
+    **Reinstall theme**
+
+    1. Settings → Appearance → Manage themes
+    2. Find the theme and click "X" to uninstall
+    3. Reinstall the theme
+    4. Select it from the themes dropdown
+
+    <Info>
+    Themes are vault-specific. If you want the same theme across multiple vaults, install it in each vault separately.
+    </Info>
+  </Accordion>
+
+  <Accordion title="Cloud sync conflicts and data issues">
+    ### Symptoms
+    - Duplicate files with "conflict" in the name
+    - Settings reverting unexpectedly
+    - Vault corruption or missing notes
+    - Sync service showing conflicts
+
+    ### Solutions
+
+    **Prevent simultaneous access**
+
+    Never open the same vault on multiple computers at the same time:
+
+    1. Always close Obsidian before syncing
+    2. Wait for sync to complete before opening on another device
+    3. Check sync status before launching
+
+    **Resolve existing conflicts**
+
+    <Steps>
+      <Step title="Close Obsidian everywhere">
+        Ensure Obsidian is closed on all computers
+      </Step>
+      
+      <Step title="Review conflict files">
+        Use your cloud service's conflict resolution tool
+      </Step>
+      
+      <Step title="Merge manually">
+        Compare conflicted versions and merge important changes
+      </Step>
+      
+      <Step title="Delete duplicates">
+        Remove conflict copies after merging
+      </Step>
+    </Steps>
+
+    **Best practices for cloud sync**
+
+    1. **Close before sync**: Always exit Obsidian before allowing sync
+    2. **One device at a time**: Only use on one computer at a time
+    3. **Wait for completion**: Let sync finish before moving to another device
+    4. **Monitor sync status**: Watch for sync errors or conflicts
+    5. **Regular backups**: Keep separate backups outside cloud storage
+
+    **Consider Obsidian Sync**
+
+    For better multi-device support:
+
+    - Use Obsidian's official sync service
+    - Handles simultaneous access safely
+    - Provides version history and conflict resolution
+    - End-to-end encrypted
+
+    <Warning>
+    Cloud folder sync is not designed for simultaneous multi-device access. For that use case, consider Obsidian Sync or Git-based solutions.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Application data not portable">
+    ### Symptoms
+    - Settings reset when moving to new computer
+    - Vault list is empty after moving drive
+    - Have to reconfigure everything on each computer
+
+    ### Solutions
+
+    **Verify launch method**
+
+    You must launch using `ObsidianPortable.exe`, not the direct executable.
+
+    **Check for correct executable**
+
+    Wrong: `App/Obsidian/Obsidian.exe`  
+    Correct: `ObsidianPortable.exe` (in root folder)
+
+    **Verify data directory parameter**
+
+    The launcher should pass:
+    ```bash
+    --user-data-dir="Data/ObsidianAppData"
+    ```
+
+    You can verify this in Task Manager:
+    1. Launch Obsidian Portable
+    2. Open Task Manager
+    3. Right-click Obsidian process → Properties
+    4. Check command line includes `--user-data-dir`
+
+    **Check Data folder exists**
+
+    Ensure the structure exists:
+    ```
+    ObsidianPortable/
+    └── Data/
+        └── ObsidianAppData/
+    ```
+
+    If missing, create the folders manually.
+
+    **Verify launcher configuration**
+
+    Check `App/AppInfo/Launcher/ObsidianPortable.ini` contains:
+
+    ```ini
+    [Launch]
+    CommandLineArguments=--user-data-dir="%PAL:DataDir%\ObsidianAppData"
+    ```
+
+    <Note>
+    If you've been launching the wrong executable, your settings are in the system default location. Copy them from `%APPDATA%/Obsidian` to `Data/ObsidianAppData/` to migrate them to portable mode.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+## Error Messages
+
+### "Failed to load vault"
+
+**Cause**: Vault path is invalid or vault folder is corrupted.
+
+**Solution**:
+1. Verify the vault folder exists at the specified path
+2. Check that `.obsidian/` directory exists within the vault
+3. Try opening the vault folder directly using "Open folder as vault"
+
+### "Permission denied"
+
+**Cause**: Insufficient file system permissions.
+
+**Solution**:
+1. Check folder permissions (Right-click → Properties → Security)
+2. Ensure you have "Modify" permission
+3. Try running as administrator (though usually not needed)
+4. Check if drive is write-protected
+
+### "Cannot create directory"
+
+**Cause**: No write access or drive is full.
+
+**Solution**:
+1. Check available disk space
+2. Verify write permissions
+3. Ensure drive is not read-only
+4. Check if running from protected location
+
+## Platform-Specific Issues
+
+### Windows 10/11
+
+**Windows Defender SmartScreen blocking**
+
+1. Click "More info" when SmartScreen appears
+2. Click "Run anyway"
+3. Add permanent exception in Windows Security
+
+**Slow indexing on OneDrive**
+
+Windows Search may slow down vaults in OneDrive:
+
+1. Exclude vault folders from Windows Search indexing
+2. Settings → Search → Searching Windows → Exclude folders
+
+### Network Drives
+
+**UNC path performance**
+
+Network drives may be slow:
+
+1. Test with local drive first to rule out Obsidian issues
+2. Check network speed and latency
+3. Consider mapping network drive to a letter
+4. Use local sync instead of direct network access
+
+**Authentication issues**
+
+If network paths require authentication:
+
+1. Ensure you're logged in to the network
+2. Map the network drive with credentials saved
+3. Test access in File Explorer first
+
+## Getting Help
+
+If these solutions don't resolve your issue:
+
+<CardGroup cols={2}>
+  <Card title="Obsidian Documentation" icon="book" href="https://help.obsidian.md/">
+    Official Obsidian documentation and guides
+  </Card>
+  
+  <Card title="Obsidian Forum" icon="comments" href="https://forum.obsidian.md/">
+    Community forum for questions and discussions
+  </Card>
+  
+  <Card title="PortableApps Forums" icon="users" href="https://portableapps.com/forums">
+    Support for portable app issues
+  </Card>
+  
+  <Card title="GitHub Issues" icon="github" href="https://github.com/Papela/Obsidian-Portable">
+    Report portable-specific bugs and issues
+  </Card>
+</CardGroup>
+
+### Information to Include
+
+When reporting issues, include:
+
+1. **Obsidian Portable version**: Found in `App/AppInfo/appinfo.ini`
+2. **Windows version**: Windows 10, Windows 11, etc.
+3. **Storage type**: USB drive, network drive, cloud folder, etc.
+4. **Drive type**: USB 2.0, USB 3.0, SSD, HDD, etc.
+5. **Steps to reproduce**: Detailed steps that cause the issue
+6. **Error messages**: Exact text of any error messages
+7. **Screenshots**: If applicable, showing the problem
+
+## Diagnostic Steps
+
+For persistent issues, try these diagnostic steps:
+
+<Steps>
+  <Step title="Test with fresh installation">
+    Download fresh Obsidian Portable, test if issue occurs without your data
+  </Step>
+  
+  <Step title="Test with new vault">
+    Create a brand new vault to rule out vault corruption
+  </Step>
+  
+  <Step title="Disable all plugins">
+    Disable all community plugins to identify plugin-related issues
+  </Step>
+  
+  <Step title="Test on different computer">
+    Try on another computer to rule out system-specific issues
+  </Step>
+  
+  <Step title="Check system resources">
+    Monitor CPU, memory, and disk usage while running Obsidian
+  </Step>
+</Steps>
+
+## Preventive Measures
+
+Avoid common issues:
+
+1. **Regular backups**: Copy `Data/` folder regularly
+2. **Safe ejection**: Always use "Safely Remove Hardware"
+3. **Close properly**: Exit Obsidian before closing/ejecting
+4. **Update regularly**: Keep Obsidian Portable updated
+5. **Monitor storage**: Ensure adequate free space
+6. **Test after changes**: Test after installing plugins or themes
+
+<Info>
+Most issues with Obsidian Portable are related to storage performance, permissions, or incorrect launch methods. Following the guidelines in this documentation prevents most common problems.
+</Info>
+
+## Emergency Recovery
+
+If Obsidian Portable is completely broken:
+
+### Recover Your Data
+
+1. **Your notes are safe**: Vaults are just folders with `.md` files
+2. **Access vaults directly**: Open vault folders in any text editor
+3. **Copy vaults**: Copy vault folders to a safe location
+4. **Reinstall**: Download fresh Obsidian Portable
+5. **Restore data**: Copy `Data/` folder from backup
+
+### Clean Reinstall
+
+<Steps>
+  <Step title="Backup data">
+    Copy entire `Data/` folder to safe location
+  </Step>
+  
+  <Step title="Download fresh copy">
+    Get new Obsidian Portable from PortableApps.com
+  </Step>
+  
+  <Step title="Install to new location">
+    Extract to a temporary folder
+  </Step>
+  
+  <Step title="Test fresh installation">
+    Verify it launches correctly
+  </Step>
+  
+  <Step title="Restore your data">
+    Copy your backed-up `Data/` folder to the new installation
+  </Step>
+</Steps>
+
+<Warning>
+Always keep backups of your `Data/` folder and vault folders. While rare, drive failures or corruption can occur.
+</Warning>
