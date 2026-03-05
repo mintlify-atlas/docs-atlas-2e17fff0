@@ -1,0 +1,61 @@
+{
+  "projectType": "general",
+  "projectName": "Obsidian Portable",
+  "projectDescription": "Portable distribution of Obsidian markdown note-taking app for Windows with PortableApps.com launcher",
+  "theme": "almond",
+  "primaryColor": "#e8607b",
+  "lightColor": "#f5df69",
+  "darkColor": "#2bc6f9",
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "installation",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "User Guide",
+        "pages": [
+          "guide/using-obsidian-portable",
+          "guide/configuration",
+          "guide/portability",
+          "guide/troubleshooting"
+        ]
+      },
+      {
+        "group": "Advanced",
+        "pages": [
+          "advanced/launcher-configuration",
+          "advanced/file-structure",
+          "advanced/upgrading",
+          "advanced/command-line-arguments"
+        ]
+      },
+      {
+        "group": "Support",
+        "pages": [
+          "support/faq",
+          "support/contributing",
+          "support/changelog"
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Portable Obsidian installation that runs from USB drives or cloud folders",
+    "PortableApps.com launcher integration for seamless portability",
+    "Automatic path management for vault locations across different drives",
+    "No local installation required - run from any Windows PC",
+    "Preserves all settings and data between different computers"
+  ],
+  "publicApiSurface": [
+    "ObsidianPortable.exe - Main launcher executable",
+    "ObsidianPortable.ini - Launcher configuration file",
+    "--user-data-dir command-line argument for data directory control",
+    "App/AppInfo/appinfo.ini - Application metadata and version information",
+    "Data/ObsidianAppData - Portable data directory for settings and vaults"
+  ]
+}
